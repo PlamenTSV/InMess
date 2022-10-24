@@ -1,11 +1,12 @@
 import './LoginPage.css';
 import React from 'react';
 import {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
-
-import Logo from '../Images/AppLogo.jpg';
+import { Link, useNavigate } from 'react-router-dom';
  
 function LoginPage(){
+  const Logo = process.env.PUBLIC_URL + '/images/AppLogo.jpg';
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [serverData, setServerData] = useState({});
@@ -18,14 +19,23 @@ function LoginPage(){
   }
 
   useEffect(() => {
-    console.log(serverData);
     fetch('/login', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
       body: JSON.stringify(serverData)
+    })
+    .then(res => {return res.text()})
+    .then(data => {
+      alert(data + ', redirecting...');
+      if(data === "Login successful")navigate('/app', {
+        state: {
+            test: "test"
+        }
+      });
     });
+
   }, [serverData]);
 
   return (

@@ -3,9 +3,8 @@ import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
-import Logo from '../Images/AppLogo.jpg';
-
 function RegisterPage(){
+    const Logo = process.env.PUBLIC_URL + '/images/AppLogo.jpg';
     const navigate = useNavigate();
 
     let [username, setUsername] = useState('');
@@ -47,7 +46,11 @@ function RegisterPage(){
                     }
                     else {
                         alert("Successful register! Redirecting...");
-                        navigate('/app');
+                        navigate('/app', {
+                            state: {
+                                test: "test"
+                            }
+                        });
                     }
                 });
             }

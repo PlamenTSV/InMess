@@ -1,9 +1,9 @@
 import './App.css';
 import React from 'react';
 
-import LoginPage from './Components/LoginPage';
-import RegisterPage from './Components/RegisterPage';
-import UserPage from './Components/UserPage';
+import LoginPage from './MainComponents/LoginPage';
+import RegisterPage from './MainComponents/RegisterPage';
+import UserPage from './MainComponents/UserPage';
 
 import { Route, Routes } from 'react-router-dom';
 

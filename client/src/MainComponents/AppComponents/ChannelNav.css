@@ -1,0 +1,42 @@
+.channel-navigation {
+    background-color: rgb(125, 59, 53);
+    height: 100%; 
+    width: 90px; 
+
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0;
+
+    overflow-x: hidden; 
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.channel-navigation li {
+    width: 50px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.channel-navigation li:first-child{
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgb(42, 61, 82);
+    margin: 0 auto;
+}
+
+.channel-navigation .logo-button{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    transform: translate(-14%);
+    transition: 0.2s;
+}
+
+.channel-navigation .logo-button:hover{
+    border-radius: 28%;
+}
