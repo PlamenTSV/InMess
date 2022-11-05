@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 
@@ -6,8 +7,21 @@ import './NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
+    const reader = new FileReader();
+
     let [image, setImage] = useState(defaultState);
+    let [blob, setBlob] = useState(new Blob());
+    let [cloudImage, setCloudImage] = useState();
+
     let name = useRef("Test");
+
+    useEffect(() => {
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            console.log(reader.result);
+            setCloudImage(reader.result);
+        }
+    }, [blob]);
 
     return (props.trigger) ? (
         <div className="container">
@@ -17,13 +31,27 @@ const NewChannelPopup = (props) => {
                 <label htmlFor="img"><img src={image} alt="Camera icon" className="select-image"/></label>
                 <input type="file" id="img" name="img" accept="image/*" onChange={(event) => {
                     if(event.target.files && event.target.files[0]){
+                        console.log(event.target.files[0]);
                         setImage(URL.createObjectURL(event.target.files[0]));
+                        setBlob(event.target.files[0]);
                     }
                 }}/>
                 <h3>Select icon and name for your channel</h3>
                 <input type="text" id="text" placeholder="My channel" ref={name}/><br/>
                 <input type="button" id="submit" value="CREATE" onClick={() => {
-                    let uniqueID = Math.random().toString().substring(2);
+                    let uniqueID = Math.random().toString().substring(10);
+                    
+                    fetch('/channels', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id: uniqueID,
+                            name: name.current.value,
+                            icon: cloudImage,
+                        })
+                    })
 
                     props.setChannels(curr => [...curr, {
                         name: name.current.value,
