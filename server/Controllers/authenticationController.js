@@ -8,12 +8,12 @@ exports.registerUser = async (req, res) => {
 
         
         db.promise().query(`INSERT INTO users (Username, Password, Email) VALUES ("${username}", "${hashedPassword}", "${email}")`)
-        .then(() => {
-            console.log('new entry');
-            res.status(200).end();
+        .then((results, fields) => {
+            console.log('New entry with id ' + results[0].insertId);
+            res.status(200).send(`${results[0].insertId}`);
         })
         .catch(err => {
-            console.log('Email is already in use!');
+            console.log(err);
             res.send('Email already in use');
         });
     }
@@ -24,28 +24,24 @@ exports.loginUser = async (req, res) => {
         console.log('Logged in: ', req.body);
 
         let dbData;
-        let authenticated = false;
         const {username, password} = req.body;
 
-        db.promise().query(`SELECT Password FROM users WHERE Username='${username}'`)
+        db.promise().query(`SELECT id, Password FROM users WHERE Username='${username}'`)
         .then((results, fields) => {
             dbData = results[0];
             if(Object.keys(dbData).length === 0){
                 console.log('No user with such username');
+                res.send('No user with such username');
             }
             else {
-                dbData.filter(element => {
+                dbData.forEach(element => {
                     if(bcrypt.compareSync(password, element.Password)){
-                        console.log('true');
-                        authenticated = true;
+                        res.status(200).send(`${element.id}`);
                     } else {
-                        console.log('Wrong password');
+                        res.send('Wrong password');
                     }
                 });
             }
-        })
-        .finally(() => {
-            res.send((authenticated) ? 'Login successful' : 'Incorrect username or password');
         })
     }
 }

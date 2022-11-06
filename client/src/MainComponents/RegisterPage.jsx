@@ -40,13 +40,13 @@ function RegisterPage(){
                 }).then(res => {
                     return res.text();
                 }).then(data => {
-                    if(data !== ''){
+                    if(!/^[0-9]+$/.test(data)){
                         alert(data + ", redirecting to login page");
                         navigate('/login');
                     }
                     else {
                         alert("Successful register! Redirecting...");
-                        navigate('/app', {
+                        navigate(`/app/${data}`, {
                             state: {
                                 test: "test"
                             }

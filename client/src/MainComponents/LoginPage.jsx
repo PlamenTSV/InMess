@@ -28,12 +28,15 @@ function LoginPage(){
     })
     .then(res => {return res.text()})
     .then(data => {
-      alert(data + ', redirecting...');
-      if(data === "Login successful")navigate('/app', {
-        state: {
-            test: "test"
-        }
-      });
+      if(/^[0-9]+$/.test(data)){
+        alert('Login successful, redirecting...');
+        navigate(`/app/${data}`, {
+          state: {
+              test: "test"
+          }
+        });
+      }
+      else alert(data);
     });
 
   }, [serverData]);
