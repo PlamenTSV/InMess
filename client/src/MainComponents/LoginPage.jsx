@@ -30,10 +30,9 @@ function LoginPage(){
     .then(data => {
       if(/^[0-9]+$/.test(data)){
         alert('Login successful, redirecting...');
-        navigate(`/app/${data}`, {
-          state: {
-              test: "test"
-          }
+        navigate({
+          pathname: '/app',
+          search: `?userID=${data}`
         });
       }
       else alert(data);

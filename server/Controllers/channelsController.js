@@ -2,7 +2,7 @@ const db = require('../Database/users.js');
 const cloudinary = require('../Database/cloud.js');
 
 exports.addChannel = async (req, res) => {
-    const {id, name, icon} = req.body;
+    const {id, name, icon, creator} = req.body;
     let path;
 
     cloudinary.uploader
@@ -10,15 +10,29 @@ exports.addChannel = async (req, res) => {
     .then(response => {
         path = response.etag;
 
-        db.promise().query(`INSERT INTO channels (id, Channel_name, Channel_path) VALUES ("${id}", "${name}", "${path}")`)
+        db.promise().query(`INSERT INTO channels (id, Channel_name, Channel_path) VALUES (${id}, "${name}", "${path}")`)
         .then(() => {
             console.log("new channel");
-            res.status(200).end();
         })
         .catch(err => {
             console.log(err);
             res.send(err);
         })
+
+        db.promise().query(`INSERT INTO user_channels (user_id, channel_id) VALUES (${creator}, ${id})`)
+        .then(() => {
+            console.log(`created by user with id ${creator}`);
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err);
+        })
+
+        res.status(200).end();
     });
 
 }
+
+// exports.loadChannels = async (req, res) => {
+
+// }

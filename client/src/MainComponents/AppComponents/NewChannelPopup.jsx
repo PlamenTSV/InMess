@@ -1,13 +1,13 @@
 import React from "react";
-import { useEffect } from "react";
-import { useRef } from "react";
-import { useState } from "react";
+import { useEffect, useContext, useRef, useState } from "react";
+import { UserContext } from "../UserContext";
 
 import './NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
     const reader = new FileReader();
+    const currUser = useContext(UserContext);
 
     let [image, setImage] = useState(defaultState);
     let [blob, setBlob] = useState(new Blob());
@@ -18,7 +18,6 @@ const NewChannelPopup = (props) => {
     useEffect(() => {
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
-            console.log(reader.result);
             setCloudImage(reader.result);
         }
     }, [blob]);
@@ -50,6 +49,7 @@ const NewChannelPopup = (props) => {
                             id: uniqueID,
                             name: name.current.value,
                             icon: cloudImage,
+                            creator: currUser
                         })
                     })
 

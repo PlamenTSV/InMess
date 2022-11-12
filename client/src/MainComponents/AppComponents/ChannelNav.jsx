@@ -26,9 +26,6 @@ const ChannelNav = () =>{
                             return (<li key={el.id}><img className='logo-button' src={el.icon} alt={el.name}/></li>)
                          })}
 
-                {/* <li><img className='logo-button' src={channelImage} alt='channel 1'/></li>
-                <li><img className='logo-button' src={channelImage} alt='channel 2'/></li> */}
-
                 <li><img className='logo-button' src={addImage} alt='Add channel button' onClick={() => setPopup(true)}/></li>
 
                 <NewChannelPopup trigger={popup} setTrigger={setPopup} setChannels={setChannels}></NewChannelPopup>

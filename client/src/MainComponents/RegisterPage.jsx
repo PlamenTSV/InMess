@@ -46,11 +46,10 @@ function RegisterPage(){
                     }
                     else {
                         alert("Successful register! Redirecting...");
-                        navigate(`/app/${data}`, {
-                            state: {
-                                test: "test"
-                            }
-                        });
+                        navigate({
+                            pathname: '/app',
+                            search: `?userID=${data}`
+                          });
                     }
                 });
             }
