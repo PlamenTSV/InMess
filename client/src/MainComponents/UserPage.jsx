@@ -1,19 +1,22 @@
 import React from "react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import './UserPage.css';
 
 import { UserContext } from "./UserContext";
-import { useSearchParams } from "react-router-dom";
+
 import ChannelNav from "./AppComponents/ChannelNav";
 
 const UserPage = () => {
     const LogoButton = process.env.PUBLIC_URL + '/images/button_logo.png';
     const [params] = useSearchParams();
 
-    // useEffect(() => {
-    //     fetch('', {
-            
-    //     })
-    // }, []);
+    useEffect(() => {
+        fetch('/channels/load?' + new URLSearchParams({userID: params.get("userID")}))
+        .then(res => {return res.json()})
+        .then(data => console.log(data));
+    }, []);
 
     return (
         <UserContext.Provider value={params.get("userID")}>

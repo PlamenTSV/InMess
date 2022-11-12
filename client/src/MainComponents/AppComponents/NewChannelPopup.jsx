@@ -40,7 +40,7 @@ const NewChannelPopup = (props) => {
                 <input type="button" id="submit" value="CREATE" onClick={() => {
                     let uniqueID = Math.random().toString().substring(10);
                     
-                    fetch('/channels', {
+                    fetch('/channels/add', {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json'

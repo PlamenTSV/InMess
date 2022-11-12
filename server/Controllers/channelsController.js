@@ -33,6 +33,20 @@ exports.addChannel = async (req, res) => {
 
 }
 
-// exports.loadChannels = async (req, res) => {
+exports.loadChannels = async (req, res) => {
+    const user = req.query.userID;
+    let channelIDs;
 
-// }
+    console.log(`Loading channels for user with id ${user}`);
+
+    db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user}`)
+    .then(result => {
+        channelIDs = result[0];
+
+        console.log(channelIDs);
+        res.send(result[0]);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
