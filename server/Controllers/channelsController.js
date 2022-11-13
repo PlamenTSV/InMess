@@ -35,18 +35,26 @@ exports.addChannel = async (req, res) => {
 
 exports.loadChannels = async (req, res) => {
     const user = req.query.userID;
-    let channelIDs;
+    const channels = [];
 
     console.log(`Loading channels for user with id ${user}`);
 
-    db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user}`)
-    .then(result => {
-        channelIDs = result[0];
+    const channelIDs = await db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user}`);
 
-        console.log(channelIDs);
-        res.send(result[0]);
-    })
-    .catch(err => {
-        console.log(err);
-    })
+    Promise.all(channelIDs[0].map(async el => {
+        return await db.promise().query(`SELECT * FROM channels WHERE id = ${el.channel_id}`)
+
+    })).then(values => {
+        values.forEach(el => {
+            channels.push(el[0][0]);
+        });
+
+        channels.forEach(el => {
+            //console.log(cloudinary.url(el.Channel_path));
+            el.Channel_path = cloudinary.url(el.Channel_path);
+            
+        });
+
+        res.send(channels);
+    });
 }
