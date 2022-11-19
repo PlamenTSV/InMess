@@ -2,12 +2,18 @@ import React from "react";
 import { useEffect, useContext, useRef, useState } from "react";
 import { UserContext } from "../UserContext";
 
+import { useSearchParams } from "react-router-dom";
+
 import './NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
+    const {setContextValues} = useContext(UserContext);
+
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
     const reader = new FileReader();
-    const currUser = useContext(UserContext);
+
+    const [params] = useSearchParams();
+    const currUser = params.get("userID");
 
     let [image, setImage] = useState(defaultState);
     let [blob, setBlob] = useState(new Blob());
@@ -53,9 +59,10 @@ const NewChannelPopup = (props) => {
                         })
                     })
 
-                    props.setChannels(curr => [...curr, {
+                    setContextValues(curr => [...curr, {
                         name: name.current.value,
                         icon: image,
+                        active: false,
                         id: uniqueID
                     }]);
                     props.setTrigger(false);

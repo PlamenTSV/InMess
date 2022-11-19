@@ -1,0 +1,28 @@
+.channel-info {
+    background-color: rgba(160, 77, 69, 0.7);
+    height: 100%;
+    width: 230px;
+
+    position: fixed;
+    top: 0;
+    left: 90px;
+
+    text-align: center;
+}
+
+
+.channel-info .server-banner {
+    width: 220px;
+    border-radius: 5%;
+}
+
+.channel-info h2 {
+    width: 95%;
+    padding-bottom: 20px;
+
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    border-bottom: 2px solid rgb(42, 61, 82);
+}

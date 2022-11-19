@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import './UserPage.css';
@@ -6,28 +7,30 @@ import './UserPage.css';
 import { UserContext } from "./UserContext";
 
 import ChannelNav from "./AppComponents/ChannelNav";
+import ChannelInfo from "./AppComponents/Channellnfo"
 
 const UserPage = () => {
-    const LogoButton = process.env.PUBLIC_URL + '/images/button_logo.png';
+    //const LogoButton = process.env.PUBLIC_URL + '/images/button_logo.png';
     const [params] = useSearchParams();
+    const [contextValues, setContextValues] = useState([{}]);
 
-    // useEffect(() => {
-    //     fetch('/channels/load?' + new URLSearchParams({userID: params.get("userID")}))
-    //     .then(res => {return res.json()})
-    //     .then(data => console.log(data));
-    // }, []);
+    useEffect(() => {
+        fetch('/channels/load?' + new URLSearchParams({userID: params.get("userID")}))
+        .then(res => {return res.json()})
+        .then(data => {
+            setContextValues(curr => [...curr, ...data]);
+        });
+    }, []);
 
+    const values = {contextValues, setContextValues};
     return (
-        <UserContext.Provider value={params.get("userID")}>
+        <UserContext.Provider value={values}>
             <ChannelNav/>
-            <div className="channel-info">
-                <h2>Test channel</h2>
-                <img className="server-banner" src={LogoButton} alt="logo"/>
-            </div>
+            <ChannelInfo/>
 
             <div className="chat-container">
                 <div className="chat">
-                    <h1>hui</h1>
+                    <h1>ui</h1>
                 </div>
                 <div className="input-area">
                     <input type="text" autoFocus></input>

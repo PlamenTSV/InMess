@@ -37,7 +37,7 @@ exports.loadChannels = async (req, res) => {
     const user = req.query.userID;
     const channels = [];
 
-    console.log(`Loading channels for user with id ${user}`);
+    //console.log(`Loading channels for user with id ${user}`);
 
     const channelIDs = await db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user}`);
 
@@ -52,7 +52,7 @@ exports.loadChannels = async (req, res) => {
         channels.forEach(el => {
             //console.log(cloudinary.url(el.Channel_path));
             el.Channel_path = cloudinary.url(el.Channel_path);
-            
+            el.active = false;
         });
 
         res.send(channels);
