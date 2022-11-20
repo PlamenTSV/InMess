@@ -9,8 +9,7 @@ import { UserContext } from "./UserContext";
 import ChannelNav from "./AppComponents/ChannelNav";
 import ChannelInfo from "./AppComponents/Channellnfo"
 
-const UserPage = () => {
-    //const LogoButton = process.env.PUBLIC_URL + '/images/button_logo.png';
+const UserPage = ({isHomePage}) => {
     const [params] = useSearchParams();
     const [contextValues, setContextValues] = useState([{}]);
 
@@ -26,16 +25,16 @@ const UserPage = () => {
     return (
         <UserContext.Provider value={values}>
             <ChannelNav/>
-            <ChannelInfo/>
+            <ChannelInfo isHomePage={isHomePage}/>
 
-            <div className="chat-container">
+            {!isHomePage? <div className="chat-container">
                 <div className="chat">
                     <h1>ui</h1>
                 </div>
                 <div className="input-area">
                     <input type="text" autoFocus></input>
                 </div>
-            </div>
+            </div> : <h1>HomePage</h1>}
 
             <div className="members-section">
             </div>
