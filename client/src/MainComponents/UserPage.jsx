@@ -8,6 +8,7 @@ import { UserContext } from "./UserContext";
 
 import ChannelNav from "./AppComponents/ChannelNav";
 import ChannelInfo from "./AppComponents/Channellnfo"
+import HomePage from "./AppComponents/HomePage";
 
 const UserPage = ({isHomePage}) => {
     const [params] = useSearchParams();
@@ -34,7 +35,7 @@ const UserPage = ({isHomePage}) => {
                 <div className="input-area">
                     <input type="text" autoFocus></input>
                 </div>
-            </div> : <h1>HomePage</h1>}
+            </div> : <HomePage/>}
 
             <div className="members-section">
             </div>

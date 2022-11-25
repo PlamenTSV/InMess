@@ -1,6 +1,6 @@
 const db = require('mysql2');
 
-module.exports = db.createConnection(
+const connection = db.createConnection(
     // {host: 'containers-us-west-35.railway.app',
     // user: 'root',
     // password: 'pOVPC7aMmMbRHTtp3Uxk',
@@ -15,3 +15,9 @@ module.exports = db.createConnection(
     //---------------------------------}
     'mysql://xmf7bzfr3pwo3nuqe6a5:pscale_pw_BRtJDGoF8eNutQt3xZ84IFpztkhW4yKLscJ9rUNzl2O@eu-central.connect.psdb.cloud/geekscord?ssl={"rejectUnauthorized":true}'
 );
+
+connection.on('error', err => {
+    console.log('Error while creating connection');
+})
+
+module.exports = connection;
