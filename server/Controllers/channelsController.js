@@ -11,18 +11,12 @@ exports.addChannel = async (req, res) => {
         path = response.etag;
 
         db.promise().query(`INSERT INTO channels (id, Channel_name, Channel_path) VALUES (${id}, "${name}", "${path}")`)
-        .then(() => {
-            console.log("new channel");
-        })
         .catch(err => {
             console.log(err);
             res.send(err);
         })
 
         db.promise().query(`INSERT INTO user_channels (user_id, channel_id) VALUES (${creator}, ${id})`)
-        .then(() => {
-            console.log(`created by user with id ${creator}`);
-        })
         .catch(err => {
             console.log(err);
             res.send(err);
@@ -37,8 +31,6 @@ exports.loadChannels = async (req, res) => {
     const user = req.query.userID;
     const channels = [];
 
-    //console.log(`Loading channels for user with id ${user}`);
-
     const channelIDs = await db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user}`);
 
     Promise.all(channelIDs[0].map(async el => {
@@ -50,11 +42,20 @@ exports.loadChannels = async (req, res) => {
         });
 
         channels.forEach(el => {
-            //console.log(cloudinary.url(el.Channel_path));
             el.Channel_path = cloudinary.url(el.Channel_path);
             el.active = false;
         });
 
         res.send(channels);
     });
+}
+
+exports.deleteChannel = (req, res) => {
+    const deleteID = req.params.id;
+    console.log(deleteID);
+
+    db.promise().query(`DELETE FROM user_channels WHERE channel_id=${deleteID}`);
+    db.promise().query(`DELETE FROM channels WHERE id=${deleteID}`)
+    .then(result => console.log('deleted'))
+    .catch(err => console.log(err));
 }

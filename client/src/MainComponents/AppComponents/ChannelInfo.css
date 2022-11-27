@@ -26,3 +26,26 @@
 
     border-bottom: 2px solid rgb(42, 61, 82);
 }
+
+.channel-info .delete-button {
+    position: absolute;
+    top: 90%;
+    left: 7%;
+
+    width: 200px;
+    height: 50px;
+
+    font-size: 2rem;
+
+    background-color: rgba(254, 60, 60, 0.791);
+    color: rgb(205, 214, 222);
+
+    border-radius: 10px;
+}
+
+.channel-info .delete-button:hover{
+    background-color: rgba(254, 60, 60, 0.988);
+    color: black;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+}

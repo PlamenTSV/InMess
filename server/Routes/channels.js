@@ -7,4 +7,6 @@ router.post('/channels/add', channel_controller.addChannel);
 
 router.get('/channels/load', channel_controller.loadChannels);
 
+router.delete('/channels/delete/:id', channel_controller.deleteChannel);
+
 module.exports = router;

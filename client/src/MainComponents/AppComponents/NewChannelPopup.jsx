@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import './NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
-    const {setChannelValues} = useContext(UserContext);
+    const {channelValues, setChannelValues} = useContext(UserContext);
 
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
     const reader = new FileReader();
@@ -28,6 +28,10 @@ const NewChannelPopup = (props) => {
         }
     }, [blob]);
 
+    useEffect(() => {
+        console.log(channelValues);
+    }, [channelValues])
+
     return (props.trigger) ? (
         <div className="container">
             <div className="popup">
@@ -36,7 +40,6 @@ const NewChannelPopup = (props) => {
                 <label htmlFor="img"><img src={image} alt="Camera icon" className="select-image"/></label>
                 <input type="file" id="img" name="img" accept="image/*" onChange={(event) => {
                     if(event.target.files && event.target.files[0]){
-                        console.log(event.target.files[0]);
                         setImage(URL.createObjectURL(event.target.files[0]));
                         setBlob(event.target.files[0]);
                     }
@@ -58,7 +61,7 @@ const NewChannelPopup = (props) => {
                             creator: currUser
                         })
                     })
-
+                    
                     setChannelValues(curr => [...curr, {
                         name: name.current.value,
                         icon: image,

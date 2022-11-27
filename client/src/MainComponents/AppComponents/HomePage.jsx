@@ -5,7 +5,6 @@ import { UserContext } from "../UserContext";
 import './HomePage.css';
 
 const HomePage = () => {
-    const placeholder = '{placeholder}';
     const [wordsLeft, setWordsLeft] = useState(250);
 
     const {userData} = useContext(UserContext);
@@ -16,8 +15,8 @@ const HomePage = () => {
                 <div className="info">
                     <h1>MY ACCOUNT</h1>
                     <h2>Username: {userData.Username}</h2>
-                    <h2>Password: {placeholder}</h2>
                     <h2>Email: {userData.Email}</h2>
+                    <button className="change-password">Change Password</button>
                 </div>
                 <div className="about">
                     <h1>About me:</h1>

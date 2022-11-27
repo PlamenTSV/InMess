@@ -16,7 +16,6 @@ export default function ChannelInfo({isHomePage}){
         channelValues.forEach(channel => {
             if(channel.active === true)setCurrentChannel(channel);
         })
-        console.log(Object.keys(currentChannel).length);
     }, [channelValues])
 
     return (
@@ -25,6 +24,14 @@ export default function ChannelInfo({isHomePage}){
                 <>
                     <h2>{currentChannel.Channel_name}</h2>
                     <img className="server-banner" src={currentChannel.Channel_path} alt="logo"/>
+                    <button className="delete-button" onClick={() => {
+                        fetch('/channels/delete/' + currentChannel.id, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-type': 'application/json'
+                            }
+                        })
+                    }}>DELETE</button>
                 </>
                 :
                 <>

@@ -13,7 +13,7 @@
     height: 80vh;
 
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
 
@@ -21,10 +21,22 @@
 }
 
 .info > h1 {
-    align-self: center;
     background-color: rgba(252, 97, 82, 0.633);
     padding: 10px;
     border-radius: 10px;
+}
+
+.info .change-password {
+    width: 200px;
+    height: 50px;
+    margin-top: 30px;
+    background-color: rgba(244, 111, 99, 0.633);
+    font-size: 1.3rem;
+}
+
+.info .change-password:hover {
+    background-color: rgba(189, 87, 78, 0.8);
+    cursor: pointer;
 }
 
 .info > h2{
