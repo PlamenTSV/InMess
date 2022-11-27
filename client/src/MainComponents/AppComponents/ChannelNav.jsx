@@ -19,13 +19,13 @@ const ChannelNav = () =>{
         borderRadius: "28%",
     };
 
-    const {contextValues, setContextValues} = useContext(UserContext);
+    const {channelValues, setChannelValues} = useContext(UserContext);
 
     function goToHomePage(){
-        const altered = contextValues.filter(el => el !== {}).map(el => {
+        const altered = channelValues.filter(el => el !== {}).map(el => {
             return {...el, active: false};
         })
-        setContextValues(altered);
+        setChannelValues(altered);
         navigate({
             pathname: `/app`, 
             search: `${search}`
@@ -33,10 +33,10 @@ const ChannelNav = () =>{
     }
 
     function toggleActive(activatedChannel){
-        const altered = contextValues.filter(el => el !== {}).map(el => {
+        const altered = channelValues.filter(el => el !== {}).map(el => {
             return (el.id === activatedChannel.id) ? {...el, active: true} : {...el, active: false};
         })
-        setContextValues(altered);
+        setChannelValues(altered);
         navigate({
             pathname: `/app/${activatedChannel.id}`,
             search: `${search}`
@@ -48,7 +48,7 @@ const ChannelNav = () =>{
             <ul>
                 <li onClick={() => goToHomePage()}><img className='logo-button' src={channelImage} alt='logo button for acc settings/home page'/></li>
 
-                {contextValues.filter(el => el.Channel_name !== undefined && el.Channel_name !== "")
+                {channelValues.filter(el => el.Channel_name !== undefined && el.Channel_name !== "")
                          .map(el => {
                             return (<li key={el.id} onClick={() => toggleActive(el)}><img className='logo-button' src={el.Channel_path} style={(el.active)? activeBorder : {}} alt={el.Channel_name}/></li>)
                          })}

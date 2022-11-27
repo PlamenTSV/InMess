@@ -71,3 +71,9 @@
     line-height: 30px;
     padding-left: 10px;
 }
+
+.about > p {
+    position: absolute;
+    top: 70%;
+    left: 87%;
+}

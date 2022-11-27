@@ -12,17 +12,24 @@ import HomePage from "./AppComponents/HomePage";
 
 const UserPage = ({isHomePage}) => {
     const [params] = useSearchParams();
-    const [contextValues, setContextValues] = useState([{}]);
+    const [channelValues, setChannelValues] = useState([{}]);
+    const [userData, setUserData] = useState([{}]);
 
     useEffect(() => {
         fetch('/channels/load?' + new URLSearchParams({userID: params.get("userID")}))
         .then(res => {return res.json()})
         .then(data => {
-            setContextValues(curr => [...curr, ...data]);
+            setChannelValues(curr => [...curr, ...data]);
+        });
+
+        fetch('/users/load?' + new URLSearchParams({userID: params.get("userID")}))
+        .then(res => {return res.json()})
+        .then(data => {
+            setUserData(data);
         });
     }, []);
 
-    const values = {contextValues, setContextValues};
+    const values = {channelValues, setChannelValues, userData, setUserData};
     return (
         <UserContext.Provider value={values}>
             <ChannelNav/>

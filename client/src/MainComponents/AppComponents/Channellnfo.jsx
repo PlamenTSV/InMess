@@ -9,15 +9,15 @@ import "./ChannelInfo.css";
 export default function ChannelInfo({isHomePage}){
     const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';
 
-    const {contextValues} = useContext(UserContext); 
+    const {channelValues} = useContext(UserContext); 
     const [currentChannel, setCurrentChannel] = useState({});
 
     useEffect(() => {
-        contextValues.forEach(channel => {
+        channelValues.forEach(channel => {
             if(channel.active === true)setCurrentChannel(channel);
         })
         console.log(Object.keys(currentChannel).length);
-    }, [contextValues])
+    }, [channelValues])
 
     return (
         <div className="channel-info">

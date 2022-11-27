@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import './NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
-    const {setContextValues} = useContext(UserContext);
+    const {setChannelValues} = useContext(UserContext);
 
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
     const reader = new FileReader();
@@ -59,7 +59,7 @@ const NewChannelPopup = (props) => {
                         })
                     })
 
-                    setContextValues(curr => [...curr, {
+                    setChannelValues(curr => [...curr, {
                         name: name.current.value,
                         icon: image,
                         active: false,
