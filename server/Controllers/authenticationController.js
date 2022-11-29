@@ -2,46 +2,46 @@ const db = require('../Database/users.js');
 const bcrypt = require('bcrypt');
 
 exports.registerUser = async (req, res) => {
-    if(Object.keys(req.body).length !== 0){
-        const {username, password, email} = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const {username, password, email} = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        
-        db.promise().query(`INSERT INTO users (Username, Password, Email) VALUES ("${username}", "${hashedPassword}", "${email}")`)
-        .then((results, fields) => {
-            console.log('New entry with id ' + results[0].insertId);
-            res.status(200).send(`${results[0].insertId}`);
-        })
-        .catch(err => {
-            console.log(err);
-            res.send('Email already in use');
-        });
+    try {
+        const results = await db.promise().query(`INSERT INTO users (Username, Password, Email) VALUES ("${username}", "${hashedPassword}", "${email}")`);
+        const id = results[0].insertId;
+
+        req.session.user = {
+            id: id,
+            username: username,
+            email: email
+        }
+        console.log(req.session.user);
+        res.status(200).send({message: 'Success'});
+    } catch (e) {
+        console.log(err);
+        res.send({message: 'Email already in use'});
     }
 }
 
 exports.loginUser = async (req, res) => {
-    if(Object.keys(req.body).length !== 0){
-        console.log('Logged in: ', req.body);
+    const {username, password} = req.body;
 
-        let dbData;
-        const {username, password} = req.body;
+    const dbData2 = await db.promise().query(`SELECT id, Email, Password FROM users WHERE Username='${username}'`)
+    const matchingUsers = dbData2[0];
 
-        db.promise().query(`SELECT id, Password FROM users WHERE Username='${username}'`)
-        .then((results, fields) => {
-            dbData = results[0];
-            if(Object.keys(dbData).length === 0){
-                console.log('No user with such username');
-                res.send('No user with such username');
+    if(matchingUsers.length === 0)res.send({message: 'No such user found!'});
+
+    else matchingUsers.forEach(user => {
+        if(bcrypt.compareSync(password, user.Password)){
+            req.session.user = {
+                id: user.id,
+                username: username,
+                email: user.Email
             }
-            else {
-                dbData.forEach(element => {
-                    if(bcrypt.compareSync(password, element.Password)){
-                        res.status(200).send(`${element.id}`);
-                    } else {
-                        res.send('Wrong password');
-                    }
-                });
-            }
-        })
-    }
+            res.status(200).send({message: 'Success'})
+        } else res.send({message: 'Wrong password'});
+    })
+}
+
+exports.userHasSession = (req, res) => {
+    res.send({isLogged: req.session.user? true : false});
 }

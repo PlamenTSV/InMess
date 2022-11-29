@@ -28,10 +28,10 @@ exports.addChannel = async (req, res) => {
 }
 
 exports.loadChannels = async (req, res) => {
-    const user = req.query.userID;
+    const user = req.session.user;
     const channels = [];
 
-    const channelIDs = await db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user}`);
+    const channelIDs = await db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user.id}`);
 
     Promise.all(channelIDs[0].map(async el => {
         return await db.promise().query(`SELECT * FROM channels WHERE id = ${el.channel_id}`)
