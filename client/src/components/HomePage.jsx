@@ -1,13 +1,12 @@
 import React from "react";
-import { useContext } from "react";
 import { useState } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { useProvider } from "../contexts/UserContext";
 import '../styles/HomePage.css';
 
 const HomePage = () => {
     const [wordsLeft, setWordsLeft] = useState(250);
 
-    const {userData} = useContext(UserContext);
+    const {userData} = useProvider();
 
     return (
         <>

@@ -1,15 +1,13 @@
 import React from "react";
-import { useContext } from "react";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+import { useProvider } from "../contexts/UserContext";
 
 import '../styles/ChannelNav.css';
 import NewChannelPopup from './NewChannelPopup';
 
 const ChannelNav = () =>{
     const navigate = useNavigate();
-    const {search} = useLocation();
 
     const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';
     const addImage = process.env.PUBLIC_URL + '/images/add_button.png';
@@ -19,7 +17,7 @@ const ChannelNav = () =>{
         borderRadius: "28%",
     };
 
-    const {channelValues, setChannelValues} = useContext(UserContext);
+    const {channelValues, setChannelValues} = useProvider();
 
     function goToHomePage(){
         const altered = channelValues.filter(el => el !== {}).map(el => {
@@ -27,8 +25,7 @@ const ChannelNav = () =>{
         })
         setChannelValues(altered);
         navigate({
-            pathname: `/app`, 
-            search: `${search}`
+            pathname: `/app`
         })
     }
 
@@ -38,8 +35,7 @@ const ChannelNav = () =>{
         })
         setChannelValues(altered);
         navigate({
-            pathname: `/app/${activatedChannel.id}`,
-            search: `${search}`
+            pathname: `/app/${activatedChannel.id}`
           })
     }
 

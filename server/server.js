@@ -31,8 +31,7 @@ app.use(session({
     cookie: {
         expires: 60 * 60 * 24 //1 day expiration
     }
-})) 
-
+}))
 
 app.use('/', authentication);
 app.use('/', channels);

@@ -1,29 +1,18 @@
 import React from "react";
-import { useEffect, useState } from "react";
 
 import '../styles/UserPage.css';
 
-import { UserContext } from "../contexts/UserContext";
+import { UserProvider } from "../contexts/UserContext";
 
 import ChannelNav from "../components/ChannelNav";
 import ChannelInfo from "../components/Channellnfo"
 import HomePage from "../components/HomePage";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserPage = ({isHomePage}) => {
-    const [channelValues, setChannelValues] = useState([{}]);
-    const [userData, setUserData] = useState([{}]);
-
-    useEffect(() => {
-        fetch('/channels/load')
-        .then(res => res.json())
-        .then(data => {
-            setChannelValues(curr => [...curr, ...data]);
-        });
-    }, []);
-
-    const values = {channelValues, setChannelValues, userData, setUserData};
     return (
-        <UserContext.Provider value={values}>
+        <UserProvider>
             <ChannelNav/>
             <ChannelInfo isHomePage={isHomePage}/>
 
@@ -38,7 +27,7 @@ const UserPage = ({isHomePage}) => {
 
             <div className="members-section">
             </div>
-        </UserContext.Provider>
+        </UserProvider>
     )
 }
 

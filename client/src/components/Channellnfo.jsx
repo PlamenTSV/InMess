@@ -1,15 +1,15 @@
 import React from "react";
 import { useEffect } from "react";
 
-import { useContext, useState } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { useState } from "react";
+import { useProvider } from "../contexts/UserContext";
 
 import "../styles/ChannelInfo.css"; 
 
 export default function ChannelInfo({isHomePage}){
     const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';
 
-    const {channelValues} = useContext(UserContext); 
+    const {channelValues} = useProvider(); 
     const [currentChannel, setCurrentChannel] = useState({});
 
     useEffect(() => {

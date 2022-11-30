@@ -1,13 +1,13 @@
 import React from "react";
-import { useEffect, useContext, useRef, useState } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { useEffect, useRef, useState } from "react";
+import { useProvider } from "../contexts/UserContext";
 
 import { useSearchParams } from "react-router-dom";
 
 import '../styles/NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
-    const {channelValues, setChannelValues} = useContext(UserContext);
+    const {channelValues, setChannelValues} = useProvider();
 
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
     const reader = new FileReader();

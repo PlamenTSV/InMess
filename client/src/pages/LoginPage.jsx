@@ -21,7 +21,8 @@ function LoginPage(){
     fetch('/session')
     .then(res => res.json())
     .then(session => {
-      if(session.isLogged)navigate({pathname: '/app'})
+      console.log(session);
+      if(session.isLogged)navigate('/app')
     });
   }, [])
 

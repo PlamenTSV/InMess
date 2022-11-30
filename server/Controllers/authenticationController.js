@@ -25,8 +25,8 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     const {username, password} = req.body;
 
-    const dbData2 = await db.promise().query(`SELECT id, Email, Password FROM users WHERE Username='${username}'`)
-    const matchingUsers = dbData2[0];
+    const dbData = await db.promise().query(`SELECT id, Email, Password FROM users WHERE Username='${username}'`)
+    const matchingUsers = dbData[0];
 
     if(matchingUsers.length === 0)res.send({message: 'No such user found!'});
 
@@ -43,5 +43,5 @@ exports.loginUser = async (req, res) => {
 }
 
 exports.userHasSession = (req, res) => {
-    res.send({isLogged: req.session.user? true : false});
+    res.send(req.session.user? {isLogged: true, user: req.session.user} : {isLogged: false});
 }

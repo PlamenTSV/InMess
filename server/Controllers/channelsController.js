@@ -28,26 +28,29 @@ exports.addChannel = async (req, res) => {
 }
 
 exports.loadChannels = async (req, res) => {
-    const user = req.session.user;
-    const channels = [];
+    if(!req.session.user)res.send({isLogged: false});
+    else{
+        const user = req.session.user;
+        const channels = [];
 
-    const channelIDs = await db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user.id}`);
+        const channelIDs = await db.promise().query(`SELECT channel_id FROM user_channels WHERE user_id = ${user.id}`);
 
-    Promise.all(channelIDs[0].map(async el => {
-        return await db.promise().query(`SELECT * FROM channels WHERE id = ${el.channel_id}`)
+        Promise.all(channelIDs[0].map(async el => {
+            return await db.promise().query(`SELECT * FROM channels WHERE id = ${el.channel_id}`)
 
-    })).then(values => {
-        values.forEach(el => {
-            channels.push(el[0][0]);
+        })).then(values => {
+            values.forEach(el => {
+                channels.push(el[0][0]);
+            });
+
+            channels.forEach(el => {
+                el.Channel_path = cloudinary.url(el.Channel_path);
+                el.active = false;
+            });
+
+            res.send(channels);
         });
-
-        channels.forEach(el => {
-            el.Channel_path = cloudinary.url(el.Channel_path);
-            el.active = false;
-        });
-
-        res.send(channels);
-    });
+    }
 }
 
 exports.deleteChannel = (req, res) => {
