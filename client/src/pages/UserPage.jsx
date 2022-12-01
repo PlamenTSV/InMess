@@ -7,8 +7,6 @@ import { UserProvider } from "../contexts/UserContext";
 import ChannelNav from "../components/ChannelNav";
 import ChannelInfo from "../components/Channellnfo"
 import HomePage from "../components/HomePage";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const UserPage = ({isHomePage}) => {
     return (

@@ -1,19 +1,16 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useProvider } from "../contexts/UserContext";
-
-import { useSearchParams } from "react-router-dom";
 
 import '../styles/NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
+    const navigate = useNavigate();
     const {channelValues, setChannelValues} = useProvider();
 
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
     const reader = new FileReader();
-
-    const [params] = useSearchParams();
-    const currUser = params.get("userID");
 
     let [image, setImage] = useState(defaultState);
     let [blob, setBlob] = useState(new Blob());
@@ -46,31 +43,36 @@ const NewChannelPopup = (props) => {
                 }}/>
                 <h3>Select icon and name for your channel</h3>
                 <input type="text" id="text" placeholder="My channel" ref={name}/><br/>
-                <input type="button" id="submit" value="CREATE" onClick={() => {
-                    let uniqueID = Math.random().toString().substring(10);
-                    
-                    fetch('/channels/add', {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            id: uniqueID,
-                            name: name.current.value,
-                            icon: cloudImage,
-                            creator: currUser
+                <input type="button" id="submit" value="CREATE" onClick={async () => {
+                    const sessionJSON = await fetch('/session');
+                    const session = await sessionJSON.json();
+
+                    if(!session.isLogged)navigate('/');
+                    else {
+                        let uniqueID = Math.random().toString().substring(10);
+                        
+                        fetch('/channels/add', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id: uniqueID,
+                                name: name.current.value,
+                                icon: cloudImage,
+                            })
                         })
-                    })
-                    
-                    setChannelValues(curr => [...curr, {
-                        name: name.current.value,
-                        icon: image,
-                        active: false,
-                        id: uniqueID
-                    }]);
-                    props.setTrigger(false);
-                    setImage(defaultState);
-                    name.current.value = "";
+                        
+                        setChannelValues(curr => [...curr, {
+                            name: name.current.value,
+                            icon: image,
+                            active: false,
+                            id: uniqueID
+                        }]);
+                        props.setTrigger(false);
+                        setImage(defaultState);
+                        name.current.value = "";
+                    }
                 }}/>
             </div>
         </div>

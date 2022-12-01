@@ -2,7 +2,8 @@ const db = require('../Database/users.js');
 const cloudinary = require('../Database/cloud.js');
 
 exports.addChannel = async (req, res) => {
-    const {id, name, icon, creator} = req.body;
+    const {id, name, icon} = req.body;
+    const creator = req.session.user.id;
     let path;
 
     cloudinary.uploader
@@ -55,7 +56,6 @@ exports.loadChannels = async (req, res) => {
 
 exports.deleteChannel = (req, res) => {
     const deleteID = req.params.id;
-    console.log(deleteID);
 
     db.promise().query(`DELETE FROM user_channels WHERE channel_id=${deleteID}`);
     db.promise().query(`DELETE FROM channels WHERE id=${deleteID}`)

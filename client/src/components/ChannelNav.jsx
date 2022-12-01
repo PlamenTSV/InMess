@@ -34,9 +34,13 @@ const ChannelNav = () =>{
             return (el.id === activatedChannel.id) ? {...el, active: true} : {...el, active: false};
         })
         setChannelValues(altered);
-        navigate({
-            pathname: `/app/${activatedChannel.id}`
-          })
+        fetch('/session')
+        .then(res => res.json())
+        .then(session => {
+            if(session.isLogged)navigate(`/app/${activatedChannel.id}`);
+            else navigate('/');
+        })
+        
     }
 
     return (

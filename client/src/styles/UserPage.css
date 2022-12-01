@@ -1,9 +1,13 @@
+body {
+    background-color: #b56576;
+}
+
 /* MEMBER CHAT SECTION */
 
 .chat-container{
     width: 61.3%;
     height: 100%;
-    background-color: rgb(252, 118, 106, 0.5);
+    background-color: #935d69;
 
     position: fixed;
     left: 322px;
@@ -49,7 +53,7 @@
 /* ACTIVE MEMBERS SECTION */
 
 .members-section {
-    background-color: rgba(160, 77, 69, 0.7);
+    background-color: #7c4652;
 
     position: fixed;
     left: 83%;
