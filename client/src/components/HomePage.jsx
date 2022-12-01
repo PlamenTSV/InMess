@@ -11,18 +11,22 @@ const HomePage = () => {
     return (
         <>
             <div className="account-section">
-                <div className="info">
-                    <h1>MY ACCOUNT</h1>
-                    <h2>Username: {userData.Username}</h2>
-                    <h2>Email: {userData.Email}</h2>
-                    <button className="change-password">Change Password</button>
-                </div>
-                <div className="about">
-                    <h1>About me:</h1>
-                    <div className="text">
-                        <textarea name="ab" maxLength={250} cols="20" rows="10" onChange={e => setWordsLeft(250 - e.target.value.length)}></textarea>
+
+                <div className="header">
+                    <img className="profile-pic" alt="pfp" src="https://i.kym-cdn.com/photos/images/newsfeed/001/399/667/664.jpg"/>
+                    <div className="greetings">
+                        <h1>Welcome!</h1>
+                        <h2>Placeholder username</h2>
                     </div>
-                    <p>{wordsLeft}/250</p>
+                    <button className="edit-button">Edit profile</button>
+                </div>
+
+                <div className="tips">
+                    <p>Here are some quick tips to get you started!</p>
+                    <div className="cards">
+                        <div className="card1"></div>
+                        <div className="card2"></div>
+                    </div>
                 </div>
             </div>
         </>

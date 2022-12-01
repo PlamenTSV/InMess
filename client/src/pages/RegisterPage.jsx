@@ -22,7 +22,7 @@ function RegisterPage(){
         fetch('/session')
         .then(res => res.json())
         .then(session => {
-          if(session.isLogged)navigate('/app')
+          if(session.isLogged)navigate('/app/home')
         });
       }, [])
 
@@ -56,7 +56,7 @@ function RegisterPage(){
         })
         .then(res => res.json())
         .then(data => {
-            if(data.message === 'Success')navigate('/app')
+            if(data.message === 'Success')navigate('/app/home')
             else setRegisterError({
                 error: true,
                 message: data.message

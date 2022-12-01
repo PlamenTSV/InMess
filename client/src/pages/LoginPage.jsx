@@ -22,7 +22,7 @@ function LoginPage(){
     .then(res => res.json())
     .then(session => {
       console.log(session);
-      if(session.isLogged)navigate('/app')
+      if(session.isLogged)navigate('/app/home')
     });
   }, [])
 
@@ -40,7 +40,7 @@ function LoginPage(){
       .then(res => res.json())
       .then(data => {
         if(data.message === 'Success'){
-          navigate('/app');
+          navigate('/app/home');
         } else setLoginError({
           error: true,
           message: data.message

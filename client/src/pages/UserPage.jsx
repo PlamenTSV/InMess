@@ -14,14 +14,19 @@ const UserPage = ({isHomePage}) => {
             <ChannelNav/>
             <ChannelInfo isHomePage={isHomePage}/>
 
-            {!isHomePage? <div className="chat-container">
+            {
+            !isHomePage? 
+            <div className="chat-container">
                 <div className="chat">
                     <h1>ui</h1>
                 </div>
                 <div className="input-area">
                     <input type="text" autoFocus></input>
                 </div>
-            </div> : <HomePage/>}
+            </div>
+             : 
+            <HomePage/>
+            }
 
             <div className="members-section">
             </div>

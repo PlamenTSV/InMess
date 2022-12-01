@@ -24,9 +24,7 @@ const ChannelNav = () =>{
             return {...el, active: false};
         })
         setChannelValues(altered);
-        navigate({
-            pathname: `/app`
-        })
+        navigate('/app/home');
     }
 
     function toggleActive(activatedChannel){

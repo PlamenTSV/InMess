@@ -10,7 +10,7 @@ function App() {
   return (
     <Routes>
       <Route path='/app/:id' element={<UserPage isHomePage={false}/>}/>
-      <Route path='/app' element={<UserPage isHomePage={true}/>}/>
+      <Route path='/app/home' element={<UserPage isHomePage={true}/>}/>
       <Route path='/' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
     </Routes>
