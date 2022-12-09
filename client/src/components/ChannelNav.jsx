@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProvider } from "../contexts/UserContext";
 
@@ -19,6 +19,25 @@ const ChannelNav = () =>{
 
     const {channelValues, setChannelValues} = useProvider();
 
+    async function loadChannels(){
+        const activeID = parseInt(sessionStorage.getItem('Active Channel'));
+
+        const response = await fetch('/channels/load');
+        const data = await response.json();
+
+        if(data.hasOwnProperty('isLogged'))navigate('/');
+        else {
+            const altered = data.filter(el => el !== {}).map(el => {
+                return (el.id === activeID) ? {...el, active: true} : {...el, active: false};
+            })
+            setChannelValues(altered);
+        }
+    }
+
+    useEffect(() => {
+        loadChannels();
+    }, [])
+
     function goToHomePage(){
         const altered = channelValues.filter(el => el !== {}).map(el => {
             return {...el, active: false};
@@ -28,6 +47,7 @@ const ChannelNav = () =>{
     }
 
     function toggleActive(activatedChannel){
+        sessionStorage.setItem('Active Channel', activatedChannel.id);
         const altered = channelValues.filter(el => el !== {}).map(el => {
             return (el.id === activatedChannel.id) ? {...el, active: true} : {...el, active: false};
         })

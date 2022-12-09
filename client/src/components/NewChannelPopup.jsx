@@ -2,12 +2,13 @@ import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProvider } from "../contexts/UserContext";
+import CloseIcon from '@mui/icons-material/Close';
 
 import '../styles/NewChannelPopup.css';
 
 const NewChannelPopup = (props) => {
     const navigate = useNavigate();
-    const {channelValues, setChannelValues} = useProvider();
+    const {setChannelValues} = useProvider();
 
     const defaultState = process.env.PUBLIC_URL + '/images/camera.jpg';
     const reader = new FileReader();
@@ -25,14 +26,13 @@ const NewChannelPopup = (props) => {
         }
     }, [blob]);
 
-    useEffect(() => {
-        console.log(channelValues);
-    }, [channelValues])
-
     return (props.trigger) ? (
         <div className="container">
             <div className="popup">
                 <h1>Create your channel!</h1>
+                <CloseIcon className="close-button" onClick={() => {
+                    props.setTrigger(false);
+                }}/>
 
                 <label htmlFor="img"><img src={image} alt="Camera icon" className="select-image"/></label>
                 <input type="file" id="img" name="img" accept="image/*" onChange={(event) => {
@@ -49,6 +49,11 @@ const NewChannelPopup = (props) => {
 
                     if(!session.isLogged)navigate('/');
                     else {
+                        if(blob.type === ""){
+                            setCloudImage(process.env.PUBLIC_URL + '/images/button_logo.png');
+                            setImage(process.env.PUBLIC_URL + '/images/button_logo.png');
+                        }
+
                         let uniqueID = Math.random().toString().substring(10);
                         
                         fetch('/channels/add', {

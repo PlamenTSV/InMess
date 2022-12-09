@@ -8,12 +8,11 @@ const UserContext = createContext({});
 export function useProvider(){
     const context = useContext(UserContext);
     if(context === undefined)throw new Error('Use within Provider');
-    return context
+    return context;
 }
 
 export const UserProvider = ({children}) => {
     const [channelValues, setChannelValues] = useState([{}]);
-    const [userData, setUserData] = useState([{}]);
 
     const navigate = useNavigate();
 
@@ -27,17 +26,10 @@ export const UserProvider = ({children}) => {
 
     useEffect(() => {
         fetchSession();
-        
-        fetch('/channels/load')
-        .then(res => res.json())
-        .then(data => {
-            if(data.hasOwnProperty('isLogged'))navigate('/');
-            else setChannelValues(curr => [...curr, ...data]);
-        });
     }, []);
 
 
-    const values = {channelValues, setChannelValues, userData, setUserData};
+    const values = {channelValues, setChannelValues};
 
     return <UserContext.Provider value={values}>{children}</UserContext.Provider>
 }

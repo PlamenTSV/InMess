@@ -78,3 +78,18 @@
     background-color: gray;
     cursor: pointer;
 }
+
+.close-button {
+    position: absolute;
+
+    right: 1rem;
+    top: 1rem;
+
+    border: 1px solid black;
+    border-radius: 100%;
+}
+
+.close-button:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+}

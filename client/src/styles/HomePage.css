@@ -42,11 +42,15 @@
 
     border-radius: 30px;
     font-size: 1.2rem;
+
+    transition: 0.5s;
 }
 
 .edit-button:hover {
     background-color: #e5888b;
     cursor: pointer;
+    color: white;
+
 }
 
 .tips {
@@ -72,4 +76,21 @@
     border: 1px solid #824a56;
 
     border-radius: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
+.cards  h4 {
+    width: 200px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.icon{
+    width: 70%;
+    justify-self: flex-start;
+}
+
