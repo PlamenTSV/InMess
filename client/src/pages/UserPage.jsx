@@ -5,30 +5,26 @@ import '../styles/UserPage.css';
 import { UserProvider } from "../contexts/UserContext";
 
 import ChannelNav from "../components/ChannelNav";
-import ChannelInfo from "../components/Channellnfo"
+import ChannelInfo from "../components/Channellnfo";
+import ChatPage from "../components/ChatPage";
 import HomePage from "../components/HomePage";
+import ActiveSection from "../components/ActiveSection";
 
 const UserPage = ({isHomePage}) => {
     return (
         <UserProvider>
-            <ChannelNav/>
-            <ChannelInfo isHomePage={isHomePage}/>
+            <div className="wrapper">
+                <ChannelNav/>
+                <ChannelInfo isHomePage={isHomePage}/>
 
-            {
-            !isHomePage? 
-            <div className="chat-container">
-                <div className="chat">
-                    <h1>ui</h1>
-                </div>
-                <div className="input-area">
-                    <input type="text" autoFocus></input>
-                </div>
-            </div>
-             : 
-            <HomePage/>
-            }
+                {
+                !isHomePage? 
+                <ChatPage/>
+                : 
+                <HomePage/>
+                }
 
-            <div className="members-section">
+                <ActiveSection/>
             </div>
         </UserProvider>
     )

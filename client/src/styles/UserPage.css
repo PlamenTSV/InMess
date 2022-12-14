@@ -2,66 +2,10 @@ body {
     background-color: #b56576;
 }
 
-/* MEMBER CHAT SECTION */
-
-.chat-container{
-    width: 61.3%;
-    height: 100%;
-    background-color: #935d69;
-
-    position: fixed;
-    left: 322px;
-
+.wrapper {
+    display: flex;
+    justify-content: flex-start;
 }
-
-.chat{
-    display: block;
-    margin: 0 auto;
-    margin-top: 10px;
-
-    border: 2px solid lime;
-    width: 95%;
-    height: 89%;
-}
-
-.input-area {
-    position: fixed;
-    bottom: 30px;
-    left: 23%;
-    margin: 0 auto;
-
-    width: 58%;
-
-}
-
-.input-area input {
-    display: block;
-    margin: 0 auto;
-
-    border-style: solid;
-    outline: none;
-
-    width: 80%;
-    height: 30px;
-    padding-left: 10px;
-
-    background-color: #FC766A9A;
-}
-
-/* MEMBER CHAT SECTION */
-
-/* ACTIVE MEMBERS SECTION */
-
-.members-section {
-    background-color: #7c4652;
-
-    position: fixed;
-    left: 83%;
-    width: 260px;
-    height: 100vh;
-}
-
-/* ACTIVE MEMBERS SECTION */
 
 
 

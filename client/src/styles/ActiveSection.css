@@ -1,0 +1,15 @@
+.members-section {
+    background-color: #7c4652;
+
+    width: 260px;
+    height: 100vh;
+}
+
+@media (min-width: 1000px) {
+    .members-section {
+        background-color: #7c4652;
+    
+        width: 350px;
+        height: 100vh;
+    }
+}

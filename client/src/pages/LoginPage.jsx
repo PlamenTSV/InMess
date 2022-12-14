@@ -24,6 +24,16 @@ function LoginPage(){
       console.log(session);
       if(session.isLogged)navigate('/app/home')
     });
+
+    document.addEventListener('keydown', e => {
+      if(e.key === 'Enter')handleLogin()
+    })
+
+    return (
+      document.removeEventListener('keydown', e => {
+        if(e.key === 'Enter')handleLogin()
+      })
+    )
   }, [])
 
   const handleLogin = () => {

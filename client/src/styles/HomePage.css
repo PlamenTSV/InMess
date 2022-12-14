@@ -1,9 +1,6 @@
 .account-section {
-    width: 61.3%;
+    width: 62%;
     height: 100%;
-
-    position: fixed;
-    left: 322px;
 
     display: flex;
     justify-content: flex-start;
@@ -13,6 +10,7 @@
 }
 
 .header{
+    width: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,5 +90,81 @@
 .icon{
     width: 70%;
     justify-self: flex-start;
+}
+
+@media (min-width: 1000px) {
+    .header{
+        width: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+    
+        margin-top: 70px;
+    
+        padding-bottom: 30px;
+        border-bottom: 2px solid #73414c;
+    }
+
+    .profile-pic {
+        width: 200px;
+        height: 200px;
+    
+        border: 1px solid #824a56;
+        border-radius: 50%;
+    }
+
+    .greetings {
+        width: 420px;
+        font-size: 1.2em;
+    }
+
+    .edit-button {
+        background-color: #E56B6F;
+        padding: 10px;
+    
+        border-radius: 30px;
+        font-size: 1.5rem;
+    
+        transition: 0.5s;
+    }
+
+    .tips > p{
+        font-size: 1.8rem;
+        font-weight: 450;
+    }
+
+    .cards {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .cards > * {
+        width: 400px;
+        height: 450px;
+        background-color: #EAAC8B5F;
+        border: 1px solid #824a56;
+    
+        border-radius: 5%;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .cards  h4 {
+        width: 300px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.7);
+        font-size: 1.2em;
+    }
+    
+    .icon{
+        width: 75%;
+        justify-self: flex-start;
+    }
 }
 

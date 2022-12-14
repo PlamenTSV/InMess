@@ -12,6 +12,10 @@ export function useProvider(){
 }
 
 export const UserProvider = ({children}) => {
+    const contextStyle = {
+        display: 'flex'
+    }
+
     const [channelValues, setChannelValues] = useState([{}]);
 
     const navigate = useNavigate();

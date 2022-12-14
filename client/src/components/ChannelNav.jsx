@@ -63,18 +63,16 @@ const ChannelNav = () =>{
 
     return (
         <div className="channel-navigation">
-            <ul>
-                <li onClick={() => goToHomePage()}><img className='logo-button' src={channelImage} alt='logo button for acc settings/home page'/></li>
+            <img onClick={() => goToHomePage()} className='logo-button' src={channelImage} alt='logo button for acc settings/home page'/>
 
-                {channelValues.filter(el => el.Channel_name !== undefined && el.Channel_name !== "")
-                         .map(el => {
-                            return (<li key={el.id} onClick={() => toggleActive(el)}><img className='logo-button' src={el.Channel_path} style={(el.active)? activeBorder : {}} alt={el.Channel_name}/></li>)
-                         })}
+            {channelValues.filter(el => el.Channel_name !== undefined && el.Channel_name !== "")
+                        .map(el => {
+                        return (<img key={el.id} onClick={() => toggleActive(el)} className='logo-button' src={el.Channel_path} style={(el.active)? activeBorder : {}} alt={el.Channel_name}/>)
+                        })}
 
-                <li><img className='logo-button' src={addImage} alt='Add channel button' onClick={() => setPopup(true)}/></li>
+            <img className='logo-button' src={addImage} alt='Add channel button' onClick={() => setPopup(true)}/>
 
-                <NewChannelPopup trigger={popup} setTrigger={setPopup}></NewChannelPopup>
-            </ul>
+            <NewChannelPopup trigger={popup} setTrigger={setPopup}></NewChannelPopup>
         </div>
    )
 }
