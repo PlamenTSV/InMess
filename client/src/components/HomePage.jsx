@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import '../styles/HomePage.css';
 
 const HomePage = () => {
+    
     const [username, setUsername] = useState("");
 
     async function fetchSession() {

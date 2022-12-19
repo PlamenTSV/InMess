@@ -12,6 +12,8 @@
     border: 2px solid lime;
     width: 95%;
     height: 89%;
+
+    overflow-y: scroll;
 }
 
 .input-area {

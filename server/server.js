@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 
 //const CLOUDINARY_URL="cloudinary://271213257271594:rKzYCCr0BEDQQYYiIYXpnC1W5Aw@dh66s37ae";
@@ -36,5 +38,15 @@ app.use(session({
 app.use('/', authentication);
 app.use('/', channels);
 
+io.on('connection', (socket) => {
+    console.log('new client connection');
 
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+    socket.on('message', (message) => {
+        console.log(message);
+        socket.emit('receivedMessage', message);
+    })
+})
+
+
+
+server.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

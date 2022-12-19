@@ -74,3 +74,9 @@
         border-bottom: 2px solid rgb(42, 61, 82);
     }
 }
+
+@media (max-width: 480px) {
+    .channel-info {
+        display: none;
+    }
+}

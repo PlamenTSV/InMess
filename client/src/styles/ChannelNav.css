@@ -1,7 +1,7 @@
 .channel-navigation {
     background-color: #6a3b45;
     height: 100%; 
-    width: 90px; 
+    width: 100px; 
 
     z-index: 1;
 
@@ -13,8 +13,8 @@
 }
 
 .channel-navigation .logo-button{
-    width: 70px;
-    height: 70px;
+    width: 80%;
+    height: auto;
     border-radius: 50%;
     transition: 0.2s;
     margin: 10px 0;
@@ -36,11 +36,17 @@
     }
 
     .channel-navigation .logo-button{
-        width: 80px;
-        height: 80px;
+        
+        
         border-radius: 50%;
         
         transition: 0.2s;
+    }
+}
+
+@media (max-width: 480px) {
+    .channel-navigation {
+        display: none;
     }
 }
 

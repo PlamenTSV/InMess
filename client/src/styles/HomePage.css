@@ -168,3 +168,9 @@
     }
 }
 
+@media (max-width: 480px) {
+    .account-section{
+        width: 100vw;
+    }
+}
+
