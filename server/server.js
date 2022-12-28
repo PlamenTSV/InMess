@@ -41,10 +41,7 @@ app.use('/', channels);
 io.on('connection', (socket) => {
     console.log('new client connection');
 
-    socket.on('message', (message) => {
-        console.log(message);
-        socket.emit('receivedMessage', message);
-    })
+    require('./SocketListeners/messageListener')(socket);
 })
 
 

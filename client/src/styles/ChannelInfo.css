@@ -48,11 +48,11 @@
     box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
 }
 
-@media (min-width: 1000px) {
+@media (max-width: 1024px) {
     .channel-info {
         background-color: #7c4652;
         height: 100%;
-        width: 300px;
+        
     
         text-align: center;
     }

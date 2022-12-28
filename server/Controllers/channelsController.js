@@ -46,7 +46,6 @@ exports.loadChannels = async (req, res) => {
 
             channels.forEach(el => {
                 el.Channel_path = cloudinary.url(el.Channel_path);
-                el.active = false;
             });
 
             res.send(channels);

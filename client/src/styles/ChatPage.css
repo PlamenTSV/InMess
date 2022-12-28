@@ -9,7 +9,6 @@
     margin: 0 auto;
     margin-top: 10px;
 
-    border: 2px solid lime;
     width: 95%;
     height: 89%;
 
@@ -38,4 +37,11 @@
     padding-left: 10px;
 
     background-color: #FC766A9A;
+}
+
+@media (max-width: 480px) {
+    .chat-container{
+        width: 95%;
+        margin: 0 auto;
+    }
 }

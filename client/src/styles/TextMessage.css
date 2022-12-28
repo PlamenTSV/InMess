@@ -1,0 +1,13 @@
+.message-container{
+    background-color: red;
+    padding-left: 10px;
+}
+
+.sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.message {
+    margin: 0;
+}

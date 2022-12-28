@@ -1,4 +1,5 @@
 import React from "react";
+import { useRef } from "react";
 import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +13,10 @@ export function useProvider(){
 }
 
 export const UserProvider = ({children}) => {
-    const contextStyle = {
-        display: 'flex'
-    }
 
     const [channelValues, setChannelValues] = useState([{}]);
+    const [activeChannel, setActiveChannel] = useState({});
+    const sessionRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -24,7 +24,9 @@ export const UserProvider = ({children}) => {
         const sessionJson = await fetch('/session');
         const session = await sessionJson.json();
 
-        console.log(session);
+        
+        sessionRef.current = session;
+        console.log(sessionRef.current);
         if(!session.isLogged)navigate('/');
     }
 
@@ -33,7 +35,7 @@ export const UserProvider = ({children}) => {
     }, []);
 
 
-    const values = {channelValues, setChannelValues};
+    const values = {channelValues, setChannelValues, sessionRef, activeChannel, setActiveChannel};
 
     return <UserContext.Provider value={values}>{children}</UserContext.Provider>
 }

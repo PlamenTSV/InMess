@@ -24,26 +24,6 @@
     border-radius: 28%;
 }
 
-@media (min-width: 1000px) {
-    .channel-navigation {
-        background-color: #6a3b45;
-        height: 100%; 
-        width: 110px; 
-
-        z-index: 1;
-
-        overflow-x: hidden; 
-    }
-
-    .channel-navigation .logo-button{
-        
-        
-        border-radius: 50%;
-        
-        transition: 0.2s;
-    }
-}
-
 @media (max-width: 480px) {
     .channel-navigation {
         display: none;

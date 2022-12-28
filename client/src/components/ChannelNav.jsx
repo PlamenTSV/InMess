@@ -17,20 +17,21 @@ const ChannelNav = () =>{
         borderRadius: "28%",
     };
 
-    const {channelValues, setChannelValues} = useProvider();
+    const {channelValues, setChannelValues, activeChannel, setActiveChannel} = useProvider();
 
     async function loadChannels(){
-        const activeID = parseInt(sessionStorage.getItem('Active Channel'));
+        const activeID = parseInt(localStorage.getItem('Active Channel'));
+
+        channelValues.forEach(el => {
+            if(el.id === activeID)setActiveChannel(el);
+        })
 
         const response = await fetch('/channels/load');
         const data = await response.json();
 
         if(data.hasOwnProperty('isLogged'))navigate('/');
         else {
-            const altered = data.filter(el => el !== {}).map(el => {
-                return (el.id === activeID) ? {...el, active: true} : {...el, active: false};
-            })
-            setChannelValues(altered);
+            setChannelValues(data);
         }
     }
 
@@ -39,19 +40,13 @@ const ChannelNav = () =>{
     }, [])
 
     function goToHomePage(){
-        const altered = channelValues.filter(el => el !== {}).map(el => {
-            return {...el, active: false};
-        })
-        setChannelValues(altered);
         navigate('/app/home');
     }
 
     function toggleActive(activatedChannel){
-        sessionStorage.setItem('Active Channel', activatedChannel.id);
-        const altered = channelValues.filter(el => el !== {}).map(el => {
-            return (el.id === activatedChannel.id) ? {...el, active: true} : {...el, active: false};
-        })
-        setChannelValues(altered);
+        localStorage.setItem('Active Channel', activatedChannel.id);
+        setActiveChannel(activatedChannel)
+        
         fetch('/session')
         .then(res => res.json())
         .then(session => {
@@ -67,7 +62,7 @@ const ChannelNav = () =>{
 
             {channelValues.filter(el => el.Channel_name !== undefined && el.Channel_name !== "")
                         .map(el => {
-                        return (<img key={el.id} onClick={() => toggleActive(el)} className='logo-button' src={el.Channel_path} style={(el.active)? activeBorder : {}} alt={el.Channel_name}/>)
+                        return (<img key={el.id} onClick={() => toggleActive(el)} className='logo-button' src={el.Channel_path} style={(el.id === activeChannel.id)? activeBorder : {}} alt={el.Channel_name}/>)
                         })}
 
             <img className='logo-button' src={addImage} alt='Add channel button' onClick={() => setPopup(true)}/>

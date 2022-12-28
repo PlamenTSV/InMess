@@ -92,7 +92,7 @@
     justify-self: flex-start;
 }
 
-@media (min-width: 1000px) {
+@media (max-width: 1024px) {
     .header{
         width: 70%;
         display: flex;

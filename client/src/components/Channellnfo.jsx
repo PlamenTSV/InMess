@@ -1,7 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
 
-import { useState } from "react";
 import { useProvider } from "../contexts/UserContext";
 
 import "../styles/ChannelInfo.css"; 
@@ -9,23 +7,16 @@ import "../styles/ChannelInfo.css";
 export default function ChannelInfo({isHomePage}){
     const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';
 
-    const {channelValues} = useProvider(); 
-    const [currentChannel, setCurrentChannel] = useState({});
-
-    useEffect(() => {
-        channelValues.forEach(channel => {
-            if(channel.active === true)setCurrentChannel(channel);
-        })
-    }, [channelValues])
+    const {activeChannel} = useProvider(); 
 
     return (
         <div className="channel-info">
             {!isHomePage ?
                 <>
-                    <h2>{currentChannel.Channel_name}</h2>
-                    <img className="server-banner" src={currentChannel.Channel_path} alt="logo"/>
+                    <h2>{activeChannel.Channel_name}</h2>
+                    <img className="server-banner" src={activeChannel.Channel_path} alt="logo"/>
                     <button className="delete-button" onClick={() => {
-                        fetch('/channels/delete/' + currentChannel.id, {
+                        fetch('/channels/delete/' + activeChannel.id, {
                             method: 'DELETE',
                             headers: {
                                 'Content-type': 'application/json'
