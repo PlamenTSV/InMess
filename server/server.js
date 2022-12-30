@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 const authentication = require('./Routes/authentication.js');
 const channels = require('./Routes/channels.js');
+const messages = require('./Routes/messages.js');
 
 app.use(bodyParser.json({limit: '150mb'}));
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -37,12 +38,14 @@ app.use(session({
 
 app.use('/', authentication);
 app.use('/', channels);
+app.use('/', messages);
 
-io.on('connection', (socket) => {
-    console.log('new client connection');
+// io.on('connection', (socket) => {
+//     console.log('new client connection');
+//     socketListener.loadMessages(socket)
 
-    require('./SocketListeners/messageListener')(socket);
-})
+//     socketListener.newMessage(socket);
+// })
 
 
 
