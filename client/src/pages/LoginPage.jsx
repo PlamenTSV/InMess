@@ -21,8 +21,7 @@ function LoginPage(){
     fetch('/session')
     .then(res => res.json())
     .then(session => {
-      console.log(session);
-      if(session.isLogged)navigate('/app/home')
+      if(session.isLogged)navigate('/app/home');
     });
 
     document.addEventListener('keydown', e => {

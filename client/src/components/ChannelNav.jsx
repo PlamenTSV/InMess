@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useProvider } from "../contexts/UserContext";
 
 import '../styles/ChannelNav.css';
-import NewChannelPopup from './NewChannelPopup';
+import ChannelPopup from './Popups/ChannelPopup';
 
 const ChannelNav = () =>{
     const navigate = useNavigate();
@@ -52,8 +52,7 @@ const ChannelNav = () =>{
         .then(session => {
             if(session.isLogged)navigate(`/app/${activatedChannel.id}`);
             else navigate('/');
-        })
-        
+        })   
     }
 
     return (
@@ -67,7 +66,7 @@ const ChannelNav = () =>{
 
             <img className='logo-button' src={addImage} alt='Add channel button' onClick={() => setPopup(true)}/>
 
-            <NewChannelPopup trigger={popup} setTrigger={setPopup}></NewChannelPopup>
+            <ChannelPopup trigger={popup} setTrigger={setPopup}></ChannelPopup>
         </div>
    )
 }

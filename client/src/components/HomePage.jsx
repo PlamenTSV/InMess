@@ -1,17 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import '../styles/HomePage.css';
 
 const HomePage = () => {
     
     const [username, setUsername] = useState("");
+    const navigate = useNavigate();
 
     async function fetchSession() {
         const sessionJSON = await fetch('/session');
         const session = await sessionJSON.json();
 
-        setUsername(session.user.username);
+        if(!session.isLogged)navigate('/');
+        else setUsername(session.user.username);
     }
 
     useEffect(() => {

@@ -28,6 +28,21 @@ exports.addChannel = async (req, res) => {
 
 }
 
+exports.joinChannel = async (req, res) => {
+    const user = req.session.user;
+    const channelID = req.body.channelID;
+    let message = 'Success';
+
+    console.log(`User ${user.id} wants to join channel - ${channelID}`);
+
+    db.query(`INSERT INTO user_channels (user_id, channel_id) VALUES (${user.id}, ${channelID})`, (err, results) => {
+        if(err && err.code === 'ER_DUP_ENTRY'){
+            message = 'dublicate';
+        }
+        res.send({message: message});
+    });
+}
+
 exports.loadChannels = async (req, res) => {
     if(!req.session.user)res.send({isLogged: false});
     else{
@@ -58,6 +73,7 @@ exports.deleteChannel = (req, res) => {
 
     db.promise().query(`DELETE FROM user_channels WHERE channel_id=${deleteID}`);
     db.promise().query(`DELETE FROM channels WHERE id=${deleteID}`)
-    .then(result => console.log('deleted'))
     .catch(err => console.log(err));
+
+    res.end();
 }

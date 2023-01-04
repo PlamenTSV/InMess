@@ -1,12 +1,11 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useProvider } from "../contexts/UserContext";
-import CloseIcon from '@mui/icons-material/Close';
+import { useProvider } from "../../contexts/UserContext";
 
-import '../styles/NewChannelPopup.css';
+import '../../styles/CreateChannelPopup.css';
 
-const NewChannelPopup = (props) => {
+export default function CreateChannelPopup(props){
     const navigate = useNavigate();
     const {setChannelValues} = useProvider();
 
@@ -26,13 +25,9 @@ const NewChannelPopup = (props) => {
         }
     }, [blob]);
 
-    return (props.trigger) ? (
-        <div className="container">
-            <div className="popup">
+    return(
+        <div className="create-popup" style={props.style}>
                 <h1>Create your channel!</h1>
-                <CloseIcon className="close-button" onClick={() => {
-                    props.setTrigger(false);
-                }}/>
 
                 <label htmlFor="img"><img src={image} alt="Camera icon" className="select-image"/></label>
                 <input type="file" id="img" name="img" accept="image/*" onChange={(event) => {
@@ -69,9 +64,8 @@ const NewChannelPopup = (props) => {
                         })
                         
                         setChannelValues(curr => [...curr, {
-                            name: name.current.value,
-                            icon: image,
-                            active: false,
+                            Channel_name: name.current.value,
+                            Channel_path: image,
                             id: uniqueID
                         }]);
                         props.setTrigger(false);
@@ -80,8 +74,5 @@ const NewChannelPopup = (props) => {
                     }
                 }}/>
             </div>
-        </div>
-    ) : "";
+    )
 }
-
-export default NewChannelPopup;

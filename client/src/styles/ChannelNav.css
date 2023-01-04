@@ -14,7 +14,7 @@
 
 .channel-navigation .logo-button{
     width: 80%;
-    height: auto;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     transition: 0.2s;
     margin: 10px 0;

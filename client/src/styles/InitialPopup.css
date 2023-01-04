@@ -1,0 +1,74 @@
+.initial-popup{
+    height: 600px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.popup-icon{
+    width: 50%;
+    height: 40%;
+}
+
+h2, h3{
+    width: 90%;
+}
+
+.options button{
+    width: 200px;
+
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: larger;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.options > button {
+    height: 40px;
+}
+
+.options button:hover{
+    background-color: gray;
+    cursor: pointer;
+}
+
+.join{
+    margin-top: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 30px;
+}
+
+.join > * {
+    height: 100%;
+}
+
+.join > button{
+    width: 100px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.join > input {
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.join > input:focus{
+    outline: none;
+}

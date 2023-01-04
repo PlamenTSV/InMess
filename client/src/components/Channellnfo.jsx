@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useProvider } from "../contexts/UserContext";
 
@@ -7,7 +8,8 @@ import "../styles/ChannelInfo.css";
 export default function ChannelInfo({isHomePage}){
     const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';
 
-    const {activeChannel} = useProvider(); 
+    const navigate = useNavigate();
+    const {activeChannel, setChannelValues} = useProvider(); 
 
     return (
         <div className="channel-info">
@@ -21,6 +23,10 @@ export default function ChannelInfo({isHomePage}){
                             headers: {
                                 'Content-type': 'application/json'
                             }
+                        })
+                        .then(() => {
+                            setChannelValues(channels => channels.filter(ch => ch.id !== activeChannel.id));
+                            navigate('/app/home');
                         })
                     }}>DELETE</button>
                 </>

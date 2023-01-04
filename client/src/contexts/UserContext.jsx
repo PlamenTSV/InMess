@@ -24,9 +24,8 @@ export const UserProvider = ({children}) => {
         const sessionJson = await fetch('/session');
         const session = await sessionJson.json();
 
-        
         sessionRef.current = session;
-        console.log(sessionRef.current);
+        
         if(!session.isLogged)navigate('/');
     }
 
