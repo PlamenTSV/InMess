@@ -7,35 +7,35 @@ import { useProvider } from "../contexts/UserContext";
 
 import TextMessage from "./TextMessage";
 
-//const socket = io();
+let socket;
 
 export default function ChatPage(){
     const navigate = useNavigate();
     const {sessionRef, activeChannel} = useProvider();
 
+    
     const [messages, setMessages] = useState([])
 
-    // useEffect(() => {
-    //     setMessages([]);
+   useEffect(() => {
+        socket = io();
+        
+        socket.on('chat', msg => {
+            console.log(msg);
+            setMessages(old => [...old, msg]);
+        })
 
-    //     socket.emit('loadMessages', {
-    //         channel: activeChannel.id
-    //     })
-    // }, [activeChannel])
+        return () => {
+            if(socket) socket.disconnect();
+        }
+   }, [])
 
     useEffect(() => {
-        // socket.on('receivedMessage', message => {
-        //     setMessages(curr => [...curr, message]);
-        // })
-        // socket.on('messagesForCurrentChannel', db_messages => {
-        //     console.log(db_messages);
-        //     setMessages(db_messages);
-        // })
         if(activeChannel.id !== undefined){
+            socket.emit('join', activeChannel.id);
+
             fetch('/message/loadAll/' + activeChannel.id)
             .then(res => res.json())
             .then(mess => {
-                console.log(mess);
                 setMessages(mess);
             })
         } else {
@@ -64,7 +64,6 @@ export default function ChatPage(){
                         const seconds = format2Digits(date.getSeconds());
 
                         const sentAt = `${date.getFullYear()}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-                        console.log(sentAt);
 
                         fetch('/messages/add', {
                             method: 'POST',
@@ -78,13 +77,17 @@ export default function ChatPage(){
                                 channel_id: activeChannel.id
                             })
                         })
-                        // socket.emit('message', {
-                        //     senderID: sessionRef.current.user.id,
-                        //     content: event.target.value,
-                        //     sent_at: sentAt,
-                        //     channel_id: activeChannel.id
-                        // });
-                        event.target.value = '';
+                        .then(res => res.json())
+                        .then(data => {
+                            socket.emit('message', {
+                                senderUsername: data.username,
+                                content: event.target.value,
+                                sent_at: sentAt,
+                                channel_id: activeChannel.id
+                            })
+                            event.target.value = '';
+                        })
+                        
                     }
                 }}></input>
             </div>

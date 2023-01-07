@@ -40,12 +40,21 @@ app.use('/', authentication);
 app.use('/', channels);
 app.use('/', messages);
 
-// io.on('connection', (socket) => {
-//     console.log('new client connection');
-//     socketListener.loadMessages(socket)
+io.on('connection', (socket) => {
+    console.log('new client connection');
 
-//     socketListener.newMessage(socket);
-// })
+    socket.on('join', room => {
+        console.log('Client joined room: ' + room);
+        socket.join(room);
+    })
+
+    socket.on('message', messageInfo => {
+        console.log('New message in channel: ' + messageInfo.channel_id);
+        io.sockets.in(messageInfo.channel_id).emit('chat', messageInfo)
+    })
+
+    socket.on('disconnecting', () => console.log('disconnected'))
+})
 
 
 

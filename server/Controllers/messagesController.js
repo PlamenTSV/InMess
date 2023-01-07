@@ -1,12 +1,14 @@
 const db = require('../Database/users.js');
 
-exports.addMessage = (req, res) => {
+exports.addMessage = async (req, res) => {
     const {senderID, content, sent_at, channel_id} = req.body;
 
     db.promise().query(`INSERT INTO messages (senderID, content, sent_at, channel_id) VALUES (${senderID}, "${content}", "${sent_at}", ${channel_id})`)
     .catch(err => console.log(err))
 
-    res.status(200).send();
+    const username = await db.promise().query(`SELECT Username FROM users WHERE id=${senderID}`);
+
+    res.status(200).send({username: username[0][0].Username});
 }
 
 exports.loadMessages = async (req, res) => {
@@ -21,7 +23,6 @@ exports.loadMessages = async (req, res) => {
         return await db.promise().query(`SELECT Username FROM users WHERE id=${mess.senderID}`);
     })).then(values => {
         values.forEach((value, index) => {
-            console.log(value[0][0].Username);
             responseArr.push({
                 senderUsername: value[0][0].Username,
                 content: messages[index].content,
