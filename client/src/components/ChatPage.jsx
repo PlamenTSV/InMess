@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/ChatPage.css';
+import '../styles/componentStyles/ChatPage.css';
 import io from 'socket.io-client';
 import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";

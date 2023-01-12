@@ -1,5 +1,5 @@
 .members-section {
-    background-color: #7c4652;
+    background-color: #412380;
 
     width: 260px;
     height: 100vh;
@@ -7,7 +7,7 @@
 
 @media (min-width: 1000px) {
     .members-section {
-        background-color: #7c4652;
+        background-color: #4e2a9b;
     
         width: 350px;
         height: 100vh;

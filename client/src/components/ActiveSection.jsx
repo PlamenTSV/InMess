@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/ActiveSection.css';
+import '../styles/componentStyles/ActiveSection.css';
 
 export default function ActiveSection(){
     return (

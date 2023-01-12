@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useProvider } from "../contexts/UserContext";
 
-import "../styles/ChannelInfo.css"; 
+import "../styles/componentStyles/ChannelInfo.css"; 
 
 export default function ChannelInfo({isHomePage}){
     const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';

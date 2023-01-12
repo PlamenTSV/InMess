@@ -1,4 +1,6 @@
-import '../styles/LoginPage.css';
+import '../styles/pageStyles/LoginPage.css';
+import '../styles/pageStyles/Wrapper.css'
+
 import React from 'react';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
@@ -6,7 +8,7 @@ import {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
  
 function LoginPage(){
-  const Logo = process.env.PUBLIC_URL + '/images/AppLogo.jpg';
+  const Logo = process.env.PUBLIC_URL + '/images/FinalLogo.png';
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -60,7 +62,7 @@ function LoginPage(){
 
   return (
     <div className='wrapper'>
-      <div className="login-container">
+      <div className="login" id='container'>
         <img src={Logo} alt="logo of the app"/>
 
         <input type="text" name="username" placeholder="Username..." onChange={(e) => setUsername(e.target.value)}/>

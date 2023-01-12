@@ -1,6 +1,6 @@
 import React from "react";
 
-import '../styles/UserPage.css';
+import '../styles/pageStyles/UserPage.css';
 
 import { UserProvider } from "../contexts/UserContext";
 
@@ -13,7 +13,7 @@ import ActiveSection from "../components/ActiveSection";
 const UserPage = ({isHomePage}) => {
     return (
         <UserProvider>
-            <div className="wrapper">
+            <div className="wrapper-app">
                 <ChannelNav/>
                 <ChannelInfo isHomePage={isHomePage}/>
 

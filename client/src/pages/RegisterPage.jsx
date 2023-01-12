@@ -1,11 +1,13 @@
-import '../styles/RegisterPage.css'
+import '../styles/pageStyles/RegisterPage.css'
+import '../styles/pageStyles/Wrapper.css'
+
 import React from 'react';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 function RegisterPage(){
-    const Logo = process.env.PUBLIC_URL + '/images/AppLogo.jpg';
+    const Logo = process.env.PUBLIC_URL + '/images/FinalLogo.png';
     const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
@@ -66,14 +68,14 @@ function RegisterPage(){
 
     return (
         <div className='wrapper'>
-            <div className="register-container">
+            <div className='register' id='container'>
                 <img src={Logo} alt="logo of the app"/>
 
                 <input type="text" name="username" placeholder="Username..." onChange={(e) => setUsername(e.target.value)}/>
                 <input type="text" name="email" placeholder="Email..." onChange={(e) => setEmail(e.target.value)}/>
                 <input type="password" name="password" placeholder="Password..." onChange={(e) => setPassword(e.target.value)}/>
                 <input type="password" name="confirm-password" placeholder="Confirm password..." onChange={(e) => setConfirmedPassword(e.target.value)}/>
-                <Link to='/' className='toLogin'><h3>Already have an account?</h3></Link>
+                <Link to='/' className='toLogin'><h3>Have an account?</h3></Link>
                 {registerError.error? <label className='registerError'><WarningAmberIcon/>{registerError.message}</label> : '' }
                 <button onClick={() => handleRegister()}>Register</button>
             </div>

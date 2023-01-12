@@ -1,7 +1,7 @@
 .chat-container{
     width: 61.3%;
     height: 100%;
-    background-color: #935d699B;
+    background-color: #605084;
 }
 
 .chat{
@@ -36,7 +36,7 @@
     height: 30px;
     padding-left: 10px;
 
-    background-color: #FC766A9A;
+    background-color: #7e69ad;
 }
 
 @media (max-width: 480px) {

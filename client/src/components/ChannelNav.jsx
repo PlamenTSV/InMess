@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProvider } from "../contexts/UserContext";
 
-import '../styles/ChannelNav.css';
+import '../styles/componentStyles/ChannelNav.css';
 import ChannelPopup from './Popups/ChannelPopup';
 
 const ChannelNav = () =>{

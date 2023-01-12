@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import '../styles/HomePage.css';
+import '../styles/componentStyles/HomePage.css';
 
 const HomePage = () => {
     

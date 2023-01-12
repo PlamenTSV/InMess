@@ -1,6 +1,7 @@
 .message-container{
-    background-color: red;
+    background-color: #412380;
     padding-left: 10px;
+    color: white;
 }
 
 .sender {
