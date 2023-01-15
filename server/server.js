@@ -41,19 +41,24 @@ app.use('/', channels);
 app.use('/', messages);
 
 io.on('connection', (socket) => {
-    const clients = [];
     console.log('New client connection');
 
     socket.on('join', props => {
         console.log('Client joined room: ' + props.channel);
         socket.join(props.channel);
 
-        if(clients.filter(cl => cl.id === props.userInfo.id).length == 0)clients.push({...props.userInfo, socketId: socket.id});
-        console.log(clients);
+        socket.user = props.userInfo;
+        const activeSockets = io.sockets.adapter.rooms.get(props.channel);
+
+        const usernames = [];
+        for(const clientSocket of activeSockets){
+            usernames.push(io.sockets.sockets.get(clientSocket).user.username);
+        }
+        
+        socket.emit('active_users', usernames);
     })
 
     socket.on('message', messageInfo => {
-        console.log('New message in channel: ' + messageInfo.channel_id);
         io.sockets.in(messageInfo.channel_id).emit('chat', messageInfo)
     })
 

@@ -16,6 +16,7 @@ export const UserProvider = ({children}) => {
 
     const [channelValues, setChannelValues] = useState([{}]);
     const [activeChannel, setActiveChannel] = useState({});
+    const [activeUsers, setActiveUsers] = useState();
     const sessionRef = useRef(null);
 
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ export const UserProvider = ({children}) => {
     }, []);
 
 
-    const values = {channelValues, setChannelValues, sessionRef, activeChannel, setActiveChannel};
+    const values = {channelValues, setChannelValues, sessionRef, activeChannel, setActiveChannel, activeUsers, setActiveUsers};
 
     return <UserContext.Provider value={values}>{children}</UserContext.Provider>
 }

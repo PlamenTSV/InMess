@@ -71,6 +71,11 @@ exports.loadChannels = async (req, res) => {
 exports.deleteChannel = (req, res) => {
     const deleteID = req.params.id;
 
+    db.promise().query(`SELECT Channel_path FROM channels WHERE id=${deleteID}`)
+    .then(image => {
+        cloudinary.uploader.destroy(image[0][0].Channel_path, function(result) { console.log(result) });
+    })
+
     db.promise().query(`DELETE FROM user_channels WHERE channel_id=${deleteID}`);
     db.promise().query(`DELETE FROM channels WHERE id=${deleteID}`)
     .catch(err => console.log(err));

@@ -11,8 +11,7 @@ let socket;
 
 export default function ChatPage(){
     const navigate = useNavigate();
-    const {sessionRef, activeChannel} = useProvider();
-
+    const {sessionRef, activeChannel, setActiveUsers} = useProvider();
     
     const [messages, setMessages] = useState([])
 
@@ -22,6 +21,10 @@ export default function ChatPage(){
         socket.on('chat', msg => {
             console.log(msg);
             setMessages(old => [...old, msg]);
+        })
+
+        socket.on('active_users', usernames => {
+            setActiveUsers(usernames);
         })
 
         return () => {
