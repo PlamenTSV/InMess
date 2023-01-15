@@ -41,11 +41,15 @@ app.use('/', channels);
 app.use('/', messages);
 
 io.on('connection', (socket) => {
-    console.log('new client connection');
+    const clients = [];
+    console.log('New client connection');
 
-    socket.on('join', room => {
-        console.log('Client joined room: ' + room);
-        socket.join(room);
+    socket.on('join', props => {
+        console.log('Client joined room: ' + props.channel);
+        socket.join(props.channel);
+
+        if(clients.filter(cl => cl.id === props.userInfo.id).length == 0)clients.push({...props.userInfo, socketId: socket.id});
+        console.log(clients);
     })
 
     socket.on('message', messageInfo => {
@@ -53,7 +57,9 @@ io.on('connection', (socket) => {
         io.sockets.in(messageInfo.channel_id).emit('chat', messageInfo)
     })
 
-    socket.on('disconnecting', () => console.log('disconnected'))
+    socket.on('disconnecting', () => {
+        console.log('disconnected')
+    })
 })
 
 

@@ -12,7 +12,7 @@
     width: 95%;
     height: 89%;
 
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .input-area {

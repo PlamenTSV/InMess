@@ -1,5 +1,5 @@
 .channel-info {
-    background-color: #412380;
+    background-color: #31166a;
     height: 100%;
     width: 230px;
 
@@ -23,7 +23,7 @@
     margin-top: 20px;
     margin-bottom: 10px;
 
-    border-bottom: 2px solid rgb(42, 61, 82);
+    border-bottom: 2px solid #ff325d;
 }
 
 .channel-info .delete-button {

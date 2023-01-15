@@ -12,7 +12,7 @@ const ChannelPopup = (props) => {
     });
     
     return (props.trigger) ? (
-        <div className="container">
+        <div className="popup-container">
             <div className="popup">
                 <CloseIcon className="close-button" onClick={() => {
                     props.setTrigger(false);

@@ -53,6 +53,10 @@ button:hover{
     color: aliceblue;
 }
 
+::placeholder{
+    color: rgba(0, 0, 0, 0.699);
+}
+
 input {
     display: block;
     height: 50px;  

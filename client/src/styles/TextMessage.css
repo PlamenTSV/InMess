@@ -1,7 +1,15 @@
 .message-container{
     background-color: #412380;
-    padding-left: 10px;
     color: white;
+    border-radius: 10px;
+    margin-bottom: 5px;
+
+    display: flex;
+}
+
+.pfp {
+    width: 50px;
+    border-radius: 50%;
 }
 
 .sender {

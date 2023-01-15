@@ -9,8 +9,8 @@ import ChannelPopup from './Popups/ChannelPopup';
 const ChannelNav = () =>{
     const navigate = useNavigate();
 
-    const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';
-    const addImage = process.env.PUBLIC_URL + '/images/add_button.png';
+    const channelImage = process.env.PUBLIC_URL + '/images/LogoButton.png';
+    const addImage = process.env.PUBLIC_URL + '/images/AddButton.png';
     let [popup, setPopup] = useState(false);
 
     const activeBorder = {

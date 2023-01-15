@@ -1,5 +1,5 @@
 .channel-navigation {
-    background-color: #341b69;
+    background-color: #26144b;
     height: 100%; 
     width: 100px; 
 
@@ -12,7 +12,7 @@
     flex-direction: column;
 }
 
-.channel-navigation .logo-button{
+.logo-button{
     width: 80%;
     aspect-ratio: 1/1;
     border-radius: 50%;
@@ -20,8 +20,29 @@
     margin: 10px 0;
 }
 
-.channel-navigation .logo-button:hover{
+.logo-button:first-child{
+    animation: rotating 10s linear infinite;
+}
+
+.logo-button:hover{
+    cursor: pointer;
+}
+
+.logo-button:first-child:hover{
+    opacity: 0.6;
+}
+
+.logo-button:not(:first-child):hover{
     border-radius: 28%;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 480px) {

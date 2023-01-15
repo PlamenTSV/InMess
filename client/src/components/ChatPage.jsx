@@ -31,7 +31,7 @@ export default function ChatPage(){
 
     useEffect(() => {
         if(activeChannel.id !== undefined){
-            socket.emit('join', activeChannel.id);
+            socket.emit('join', {channel: activeChannel.id, userInfo: sessionRef.current.user});
 
             fetch('/message/loadAll/' + activeChannel.id)
             .then(res => res.json())

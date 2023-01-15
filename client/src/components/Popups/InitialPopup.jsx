@@ -17,7 +17,7 @@ export default function InitialPopup({setCreateDisplay}){
             <div className="options">
                 <button onClick={() => {
                     setCreateDisplay({
-                        display: "block"
+                        display: "flex"
                     });
                     setStyle({
                         display: "none"

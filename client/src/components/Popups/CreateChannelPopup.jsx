@@ -27,52 +27,52 @@ export default function CreateChannelPopup(props){
 
     return(
         <div className="create-popup" style={props.style}>
-                <h1>Create your channel!</h1>
+            <h1>Create your channel!</h1>
 
-                <label htmlFor="img"><img src={image} alt="Camera icon" className="select-image"/></label>
-                <input type="file" id="img" name="img" accept="image/*" onChange={(event) => {
-                    if(event.target.files && event.target.files[0]){
-                        setImage(URL.createObjectURL(event.target.files[0]));
-                        setBlob(event.target.files[0]);
+            <label htmlFor="img"><img src={image} alt="Camera icon" className="select-image"/></label>
+            <input type="file" id="image" name="img" accept="image/*" onChange={(event) => {
+                if(event.target.files && event.target.files[0]){
+                    setImage(URL.createObjectURL(event.target.files[0]));
+                    setBlob(event.target.files[0]);
+                }
+            }}/>
+            <h3>Select icon and name for your channel</h3>
+            <input type="text" id="text" placeholder="My channel" ref={name}/><br/>
+            <input type="button" id="submit" value="CREATE" onClick={async () => {
+                const sessionJSON = await fetch('/session');
+                const session = await sessionJSON.json();
+
+                if(!session.isLogged)navigate('/');
+                else {
+                    if(blob.type === ""){
+                        setCloudImage(process.env.PUBLIC_URL + '/images/button_logo.png');
+                        setImage(process.env.PUBLIC_URL + '/images/button_logo.png');
                     }
-                }}/>
-                <h3>Select icon and name for your channel</h3>
-                <input type="text" id="text" placeholder="My channel" ref={name}/><br/>
-                <input type="button" id="submit" value="CREATE" onClick={async () => {
-                    const sessionJSON = await fetch('/session');
-                    const session = await sessionJSON.json();
 
-                    if(!session.isLogged)navigate('/');
-                    else {
-                        if(blob.type === ""){
-                            setCloudImage(process.env.PUBLIC_URL + '/images/button_logo.png');
-                            setImage(process.env.PUBLIC_URL + '/images/button_logo.png');
-                        }
-
-                        let uniqueID = Math.random().toString().substring(10);
-                        
-                        fetch('/channels/add', {
-                            method: 'POST',
-                            headers: {
-                                'Content-type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                id: uniqueID,
-                                name: name.current.value,
-                                icon: cloudImage,
-                            })
+                    let uniqueID = Math.random().toString().substring(10);
+                    
+                    fetch('/channels/add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id: uniqueID,
+                            name: name.current.value,
+                            icon: cloudImage,
                         })
-                        
-                        setChannelValues(curr => [...curr, {
-                            Channel_name: name.current.value,
-                            Channel_path: image,
-                            id: uniqueID
-                        }]);
-                        props.setTrigger(false);
-                        setImage(defaultState);
-                        name.current.value = "";
-                    }
-                }}/>
-            </div>
+                    })
+                    
+                    setChannelValues(curr => [...curr, {
+                        Channel_name: name.current.value,
+                        Channel_path: image,
+                        id: uniqueID
+                    }]);
+                    props.setTrigger(false);
+                    setImage(defaultState);
+                    name.current.value = "";
+                }
+            }}/>
+        </div>
     )
 }

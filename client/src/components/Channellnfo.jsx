@@ -6,7 +6,7 @@ import { useProvider } from "../contexts/UserContext";
 import "../styles/componentStyles/ChannelInfo.css"; 
 
 export default function ChannelInfo({isHomePage}){
-    const channelImage = process.env.PUBLIC_URL + '/images/button_logo.png';
+    const channelImage = process.env.PUBLIC_URL + '/images/LogoButton.png';
 
     const navigate = useNavigate();
     const {activeChannel, setChannelValues} = useProvider(); 
