@@ -42,6 +42,17 @@ exports.loginUser = async (req, res) => {
     })
 }
 
+exports.logoutUser = (req, res) => {
+    if(req.session){
+        req.session.destroy(err => {
+            if(err)res.status(400).send('Unable to logout');
+            else res.send('Logout successful')
+        })
+    } else {
+        res.end();
+    }
+}
+
 exports.userHasSession = (req, res) => {
     res.send(req.session.user? {isLogged: true, user: req.session.user} : {isLogged: false});
 }

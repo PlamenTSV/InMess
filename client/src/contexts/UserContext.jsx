@@ -16,8 +16,8 @@ export const UserProvider = ({children}) => {
 
     const [channelValues, setChannelValues] = useState([{}]);
     const [activeChannel, setActiveChannel] = useState({});
-    const [activeUsers, setActiveUsers] = useState();
-    const sessionRef = useRef(null);
+    const [activeUsers, setActiveUsers] = useState([]);
+    const sessionRef = useRef({user: {id: 0}});
 
     const navigate = useNavigate();
 

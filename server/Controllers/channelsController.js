@@ -7,11 +7,11 @@ exports.addChannel = async (req, res) => {
     let path;
 
     cloudinary.uploader
-    .upload(icon,  { use_filename: true, responsive_breakpoints: { create_derived: true, bytes_step: 20000, min_width: 200, max_width: 1000 }}, function(error, result) {console.log(result, error); })
+    .upload(icon,  { use_filename: true, folder: "channel-banners" , responsive_breakpoints: { create_derived: true, bytes_step: 20000, min_width: 200, max_width: 1000 }}, function(error, result) {console.log(result, error); })
     .then(response => {
         path = response.etag;
 
-        db.promise().query(`INSERT INTO channels (id, Channel_name, Channel_path) VALUES (${id}, "${name}", "${path}")`)
+        db.promise().query(`INSERT INTO channels (id, Channel_name, Channel_path, Owner) VALUES (${id}, "${name}", "${path}", "${creator}")`)
         .catch(err => {
             console.log(err);
             res.send(err);
@@ -60,7 +60,7 @@ exports.loadChannels = async (req, res) => {
             });
 
             channels.forEach(el => {
-                el.Channel_path = cloudinary.url(el.Channel_path);
+                el.Channel_path = cloudinary.url('channel-banners/' + el.Channel_path);
             });
 
             res.send(channels);

@@ -3,6 +3,25 @@
 
     width: 260px;
     height: 100vh;
+
+    text-align: center;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    width: 60px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+}
+
+.user > p {
+    font-size: larger;
+    color: aliceblue;
 }
 
 @media (min-width: 1000px) {

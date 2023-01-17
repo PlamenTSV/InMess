@@ -26,12 +26,22 @@ const HomePage = () => {
             <div className="account-section">
 
                 <div className="header">
-                    <img className="profile-pic" alt="pfp" src="https://i.kym-cdn.com/photos/images/newsfeed/001/399/667/664.jpg"/>
+                    <img className="profile-pic" alt="pfp" src={process.env.PUBLIC_URL + '/images/UserIcon.png'}/>
                     <div className="greetings">
                         <h1>Welcome!</h1>
                         <h2>{username}</h2>
                     </div>
-                    <button className="edit-button">Edit profile</button>
+                    <div className="account-controls">
+                        <button className="edit-button">Edit profile</button>
+                        <button className="logout-button" onClick={() => {
+                            fetch('/logout', {
+                                method: 'DELETE'
+                            })
+                            .then(res => {
+                                if(res.status === 200)navigate('/');
+                            });
+                        }}>Log out</button>
+                    </div>
                 </div>
 
                 <div className="tips">

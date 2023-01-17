@@ -25,6 +25,7 @@
 .profile-pic {
     width: 150px;
     height: 150px;
+    aspect-ratio: 1/1;
 
     border: 1px solid #824a56;
     border-radius: 50%;
@@ -34,9 +35,18 @@
     width: 350px;
 }
 
-.edit-button {
-    background-color: #E56B6F;
-    padding: 10px;
+.account-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 200px;
+}
+
+.account-controls > button {
+    width: 100%;
+
+    padding: 7px;
 
     border-radius: 30px;
     font-size: 1.2rem;
@@ -44,11 +54,25 @@
     transition: 0.5s;
 }
 
-.edit-button:hover {
-    background-color: #e5888b;
+.account-controls > button:hover {
     cursor: pointer;
     color: white;
+}
 
+.edit-button {
+    background-color: #ad91e9;
+}
+
+.edit-button:hover {
+    background-color: #635384;
+}
+
+.logout-button {
+    background-color: #ff0d41;
+}
+
+.logout-button:hover {
+    background-color: #8d263c;
 }
 
 .tips {

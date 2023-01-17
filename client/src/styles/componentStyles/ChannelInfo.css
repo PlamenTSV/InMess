@@ -12,6 +12,7 @@
 
 .channel-info .server-banner {
     width: 220px;
+    aspect-ratio: 1/1;
     border-radius: 5%;
 }
 
