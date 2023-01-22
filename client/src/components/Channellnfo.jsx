@@ -25,7 +25,7 @@ export default function ChannelInfo({isHomePage}){
                     {
                         (activeChannel.Owner === sessionRef.current.user.id && sessionRef.current !== undefined) ? 
                             <button className="delete-button" onClick={() => {
-                                fetch('/channels/delete/' + activeChannel.id, {
+                                fetch('/api/channels/delete/' + activeChannel.id, {
                                     method: 'DELETE',
                                     headers: {
                                         'Content-type': 'application/json'

@@ -26,7 +26,7 @@ const ChannelNav = () =>{
             if(el.id === activeID)setActiveChannel(el);
         })
 
-        const response = await fetch('/channels/load');
+        const response = await fetch('/api/channels/load');
         const data = await response.json();
 
         if(data.hasOwnProperty('isLogged'))navigate('/');
@@ -47,7 +47,7 @@ const ChannelNav = () =>{
         localStorage.setItem('Active Channel', activatedChannel.id);
         setActiveChannel(activatedChannel)
         
-        fetch('/session')
+        fetch('/api/session')
         .then(res => res.json())
         .then(session => {
             if(session.isLogged)navigate(`/app/${activatedChannel.id}`);

@@ -7,6 +7,7 @@ const session = require('express-session');
 
 const app = express();
 const server = require('http').createServer(app);
+const path = require('path');
 const io = require('socket.io')(server);
 
 
@@ -35,10 +36,15 @@ app.use(session({
         expires: 60 * 60 * 24 * 1000 //1 day expiration
     }
 }))
+app.use(express.static(path.resolve(__dirname, '../build')));
 
-app.use('/', authentication);
-app.use('/', channels);
-app.use('/', messages);
+app.use('/api', authentication);
+app.use('/api', channels);
+app.use('/api', messages);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../build/index.html'));
+})
 
 io.on('connection', (socket) => {
     console.log('New client connection');

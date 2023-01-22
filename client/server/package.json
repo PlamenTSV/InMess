@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "server": "nodemon server.js"
   },
   "keywords": [],
   "author": "Plamen Tsanev",

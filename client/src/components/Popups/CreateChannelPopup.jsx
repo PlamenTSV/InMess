@@ -41,7 +41,7 @@ export default function CreateChannelPopup(props){
             <h3>Select icon and name for your channel</h3>
             <input type="text" id="text" placeholder="My channel" ref={name}/><br/>
             <input type="button" id="submit" value="CREATE" onClick={async () => {
-                const sessionJSON = await fetch('/session');
+                const sessionJSON = await fetch('/api/session');
                 const session = await sessionJSON.json();
 
                 if(!session.isLogged)navigate('/');
@@ -53,7 +53,7 @@ export default function CreateChannelPopup(props){
 
                     let uniqueID = Math.random().toString().substring(10);
                     
-                    fetch('/channels/add', {
+                    fetch('/api/channels/add', {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json'

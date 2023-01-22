@@ -79,6 +79,7 @@ exports.deleteChannel = (req, res) => {
     db.promise().query(`DELETE FROM user_channels WHERE channel_id=${deleteID}`);
     db.promise().query(`DELETE FROM channels WHERE id=${deleteID}`)
     .catch(err => console.log(err));
+    db.promise().query(`DELETE FROM messages WHERE channel_id=${deleteID}`);
 
     res.end();
 }

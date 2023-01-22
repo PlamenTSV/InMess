@@ -27,7 +27,7 @@ export default function InitialPopup({setCreateDisplay}){
                 <div className="join">
                     <input type="text" ref={enteredCode}/>
                     <button onClick={() => {
-                        fetch('/channels/join', {
+                        fetch('/api/channels/join', {
                             method: 'POST',
                             headers: {
                                 'Content-type': 'application/json'

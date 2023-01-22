@@ -1,17 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useProvider } from "../contexts/UserContext";
 
 import '../styles/componentStyles/HomePage.css';
 
 const HomePage = () => {
+    const {sessionRef} = useProvider();
     
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
 
     async function fetchSession() {
-        const sessionJSON = await fetch('/session');
+        const sessionJSON = await fetch('/api/session');
         const session = await sessionJSON.json();
+
+        sessionRef.current = session;
 
         if(!session.isLogged)navigate('/');
         else setUsername(session.user.username);
@@ -34,7 +38,7 @@ const HomePage = () => {
                     <div className="account-controls">
                         <button className="edit-button">Edit profile</button>
                         <button className="logout-button" onClick={() => {
-                            fetch('/logout', {
+                            fetch('/api/logout', {
                                 method: 'DELETE'
                             })
                             .then(res => {

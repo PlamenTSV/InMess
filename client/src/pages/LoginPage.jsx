@@ -20,7 +20,7 @@ function LoginPage(){
   });
 
   useEffect(() => {
-    fetch('/session')
+    fetch('/api/session')
     .then(res => res.json())
     .then(session => {
       if(session.isLogged)navigate('/app/home');
@@ -38,7 +38,7 @@ function LoginPage(){
   }, [])
 
   const handleLogin = () => {
-      fetch('/login', {
+      fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'

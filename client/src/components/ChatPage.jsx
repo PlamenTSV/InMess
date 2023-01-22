@@ -36,7 +36,7 @@ export default function ChatPage(){
         if(activeChannel.id !== undefined){
             socket.emit('join', {channel: activeChannel.id, userInfo: sessionRef.current.user});
 
-            fetch('/message/loadAll/' + activeChannel.id)
+            fetch('/api/messages/loadAll/' + activeChannel.id)
             .then(res => res.json())
             .then(mess => {
                 setMessages(mess);
@@ -68,7 +68,7 @@ export default function ChatPage(){
 
                         const sentAt = `${date.getFullYear()}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-                        fetch('/messages/add', {
+                        fetch('/api/messages/add', {
                             method: 'POST',
                             headers: {
                                 'Content-type': 'application/json'

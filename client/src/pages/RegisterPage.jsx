@@ -21,7 +21,7 @@ function RegisterPage(){
     })
 
     useEffect(() => {
-        fetch('/session')
+        fetch('/api/session')
         .then(res => res.json())
         .then(session => {
           if(session.isLogged)navigate('/app/home')
@@ -45,7 +45,7 @@ function RegisterPage(){
             setRegisterError({error: true, message: 'Passwords don\'t match!'})
             return
         }
-        fetch('/register', {
+        fetch('/api/register', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
