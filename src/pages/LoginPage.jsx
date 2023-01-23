@@ -50,7 +50,10 @@ function LoginPage(){
           password: password
         })
       })
-      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        res.json();
+      })
       .then(data => {
         if(data.message === 'Success'){
           navigate('/app/home');
