@@ -51,10 +51,10 @@ function LoginPage(){
         })
       })
       .then(res => {
-        console.log(res.body);
         res.text();
       })
       .then(data => {
+        console.log(data);
         if(data.message === 'Success'){
           navigate('/app/home');
         } else setLoginError({
