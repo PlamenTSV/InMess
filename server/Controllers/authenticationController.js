@@ -1,5 +1,5 @@
 const db = require('../Database/users.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 exports.registerUser = async (req, res) => {
     const {username, password, email} = req.body;
