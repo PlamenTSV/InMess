@@ -24,7 +24,6 @@ exports.registerUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
     const {username, password} = req.body;
-    console.log(username, password);
 
     const dbData = await db.promise().query(`SELECT id, Email, Password FROM users WHERE Username='${username}'`)
     const matchingUsers = dbData[0];
