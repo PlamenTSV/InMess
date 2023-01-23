@@ -22,7 +22,7 @@ const messages = require('./Routes/messages.js');
 app.use(bodyParser.json({limit: '150mb'}));
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 limit: '150mb',
-extended: true
+extended: false
 }));
 
 app.use(cookieParser());

@@ -51,8 +51,8 @@ function LoginPage(){
         })
       })
       .then(res => {
-        console.log(res);
-        res.json();
+        console.log(res.body);
+        res.text();
       })
       .then(data => {
         if(data.message === 'Success'){
