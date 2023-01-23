@@ -18,7 +18,8 @@
     "socket.io-client": "^4.5.4"
   },
   "scripts": {
-    "start": "cd server && nodemon server.js",
+    "start": "cd server && node server.js",
+    "dev": "cd server && npm run server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
