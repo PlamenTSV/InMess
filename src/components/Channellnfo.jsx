@@ -10,11 +10,15 @@ export default function ChannelInfo({isHomePage}){
     const channelImage = process.env.PUBLIC_URL + '/images/LogoButton.png';
 
     const navigate = useNavigate();
-    const {activeChannel, setChannelValues, sessionRef} = useProvider();
+    const {activeChannel, setChannelValues, session} = useProvider();
 
     useEffect(() => {
-        console.log(sessionRef.current);
-    }, [sessionRef.current]);
+        console.log(session);
+    }, [session]);
+
+    useEffect(() => {
+        console.log(activeChannel);
+    }, [activeChannel])
 
     return (
         <div className="channel-info">
@@ -23,7 +27,7 @@ export default function ChannelInfo({isHomePage}){
                     <h2>{activeChannel.Channel_name}</h2>
                     <img className="server-banner" src={activeChannel.Channel_path} alt="logo"/>
                     {
-                        (activeChannel.Owner === sessionRef.current.user.id && sessionRef.current !== undefined) ? 
+                        (activeChannel.Owner === session.id && session !== undefined) ? 
                             <button className="delete-button" onClick={() => {
                                 fetch('/api/channels/delete/' + activeChannel.id, {
                                     method: 'DELETE',

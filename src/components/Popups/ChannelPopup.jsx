@@ -3,7 +3,7 @@ import InitialPopup from "./InitialPopup";
 import CreateChannelPopup from "./CreateChannelPopup";
 
 import CloseIcon from '@mui/icons-material/Close';
-import '../../styles/ChannelPopup.css';
+import '../../styles/popups/ChannelPopup.css';
 import { useState } from "react";
 
 const ChannelPopup = (props) => {

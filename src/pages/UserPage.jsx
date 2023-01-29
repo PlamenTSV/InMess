@@ -18,10 +18,10 @@ const UserPage = ({isHomePage}) => {
                 <ChannelInfo isHomePage={isHomePage}/>
 
                 {
-                !isHomePage? 
-                <ChatPage/>
+                isHomePage? 
+                    <HomePage/>
                 : 
-                <HomePage/>
+                    <ChatPage/>
                 }
 
                 <ActiveSection/>

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProvider } from "../../contexts/UserContext";
 
-import '../../styles/CreateChannelPopup.css';
+import '../../styles/popups/CreateChannelPopup.css';
 
 export default function CreateChannelPopup(props){
     const navigate = useNavigate();
@@ -41,11 +41,6 @@ export default function CreateChannelPopup(props){
             <h3>Select icon and name for your channel</h3>
             <input type="text" id="text" placeholder="My channel" ref={name}/><br/>
             <input type="button" id="submit" value="CREATE" onClick={async () => {
-                const sessionJSON = await fetch('/api/session');
-                const session = await sessionJSON.json();
-
-                if(!session.isLogged)navigate('/');
-                else {
                     if(blob.type === ""){
                         setCloudImage(process.env.PUBLIC_URL + '/images/button_logo.png');
                         setImage(process.env.PUBLIC_URL + '/images/button_logo.png');
@@ -64,6 +59,9 @@ export default function CreateChannelPopup(props){
                             icon: cloudImage,
                         })
                     })
+                    .then(res => {
+                        if(!res.ok)navigate('/');
+                    })
                     
                     setChannelValues(curr => [...curr, {
                         Channel_name: name.current.value,
@@ -75,7 +73,7 @@ export default function CreateChannelPopup(props){
                     setImage(defaultState);
                     name.current.value = "";
                 }
-            }}/>
+            }/>
         </div>
     )
 }

@@ -38,13 +38,22 @@ app.use(session({
 }))
 app.use(express.static(path.resolve(__dirname, '../build')));
 
-app.use('/api', authentication);
-app.use('/api', channels);
-app.use('/api', messages);
+const checkSession = (req, res, next) => {
+    if(req.session && req.session.user){
+        next();
+    }
+    else {
+        res.status(401).json({message: 'Unauthorized'})
+    }
+}
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../build/index.html'));
-})
+app.use('/api', authentication);
+app.use('/api', checkSession, channels);
+app.use('/api', checkSession, messages);
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../build/index.html'));
+// })
 
 io.on('connection', (socket) => {
     console.log('New client connection');

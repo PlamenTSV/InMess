@@ -3,8 +3,10 @@ import '../styles/pageStyles/Wrapper.css'
 
 import React from 'react';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 
 function RegisterPage(){
     const Logo = process.env.PUBLIC_URL + '/images/FinalLogo.png';
@@ -20,19 +22,17 @@ function RegisterPage(){
         message: ''
     })
 
+    const cookies = useCookies(['user']);
+
     useEffect(() => {
-        fetch('/api/session')
-        .then(res => res.json())
-        .then(session => {
-          if(session.isLogged)navigate('/app/home')
-        });
+        if(cookies.user)navigate('/app/home');
       }, [])
 
     const validateEmail = (email) => {
         return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
     }
 
-    const  handleRegister = () => {
+    const handleRegister = () => {
         if(username === '' || password === '' || confirmedPassword === '' || email === ''){
             setRegisterError({error: true, message: 'Please fill out all fields!'})
             return

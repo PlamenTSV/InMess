@@ -3,27 +3,20 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProvider } from "../contexts/UserContext";
 
+import EditProfilePopup from "./Popups/EditProfilePopup";
+
 import '../styles/componentStyles/HomePage.css';
 
 const HomePage = () => {
-    const {sessionRef} = useProvider();
+    const {session} = useProvider();
     
     const [username, setUsername] = useState("");
+    const [editingProfile, setEditingProfile] = useState(false);
     const navigate = useNavigate();
 
-    async function fetchSession() {
-        const sessionJSON = await fetch('/api/session');
-        const session = await sessionJSON.json();
-
-        sessionRef.current = session;
-
-        if(!session.isLogged)navigate('/');
-        else setUsername(session.user.username);
-    }
-
     useEffect(() => {
-        fetchSession();
-    }, [])
+        setUsername(session.username);
+    }, [session])
 
     return (
         <>
@@ -36,8 +29,13 @@ const HomePage = () => {
                         <h2>{username}</h2>
                     </div>
                     <div className="account-controls">
-                        <button className="edit-button">Edit profile</button>
-                        <button className="logout-button" onClick={() => {
+                        <button className="edit-button" 
+                        onClick={() => {
+                            setEditingProfile(true);
+                        }}>Edit profile</button>
+
+                        <button className="logout-button" 
+                        onClick={() => {
                             fetch('/api/logout', {
                                 method: 'DELETE'
                             })
@@ -62,6 +60,8 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+
+            <EditProfilePopup trigger={editingProfile} setTrigger={setEditingProfile}/>
         </>
     );
 }

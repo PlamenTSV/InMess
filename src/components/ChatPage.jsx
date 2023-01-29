@@ -11,7 +11,7 @@ let socket;
 
 export default function ChatPage(){
     const navigate = useNavigate();
-    const {sessionRef, activeChannel, setActiveUsers} = useProvider();
+    const {session, activeChannel, setActiveUsers} = useProvider();
     
     const [messages, setMessages] = useState([])
 
@@ -34,17 +34,23 @@ export default function ChatPage(){
 
     useEffect(() => {
         if(activeChannel.id !== undefined){
-            socket.emit('join', {channel: activeChannel.id, userInfo: sessionRef.current.user});
+            socket.emit('join', {channel: activeChannel.id, userInfo: session});
 
-            fetch('/api/messages/loadAll/' + activeChannel.id)
-            .then(res => res.json())
-            .then(mess => {
-                setMessages(mess);
-            })
+            retrieveMessages(activeChannel.id);
         } else {
             navigate('/');
         }
     }, [activeChannel])
+
+    async function retrieveMessages(ID){
+        const messagesJSON = await fetch('/api/messages/loadAll/' + ID);
+
+        if(!messagesJSON.ok)navigate('/');
+        else {
+            const mess = await messagesJSON.json();
+            setMessages(mess)
+        }
+    }
 
     function format2Digits(number){
         return (number < 10) ? `0${number}` : number;
@@ -74,7 +80,7 @@ export default function ChatPage(){
                                 'Content-type': 'application/json'
                             },
                             body: JSON.stringify({
-                                senderID: sessionRef.current.user.id,
+                                senderID: session.id,
                                 content: event.target.value,
                                 sent_at: sentAt,
                                 channel_id: activeChannel.id

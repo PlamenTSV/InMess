@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/TextMessage.css';
+import '../styles/componentStyles/TextMessage.css';
 
 export default function TextMessage({sender, message}){
     const UserIcon = process.env.PUBLIC_URL + '/images/UserIcon.png';

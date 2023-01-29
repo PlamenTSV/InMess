@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
-import '../../styles/InitialPopup.css'
+import { useNavigate } from "react-router-dom";
+import '../../styles/popups/InitialPopup.css'
 
 export default function InitialPopup({setCreateDisplay}){
+    const navigate = useNavigate();
 
     const [style, setStyle] = useState({});
     const enteredCode = useRef(null);
@@ -36,7 +38,10 @@ export default function InitialPopup({setCreateDisplay}){
                                 channelID: enteredCode.current.value
                             })
                         })
-                        .then(res => res.json())
+                        .then(res => {
+                            if(!res.ok)navigate('/');
+                            else return res.json()
+                        })
                         .then(response => {
                             if(response.message === 'dublicate')alert('already in channel');
                             else console.log('joined');

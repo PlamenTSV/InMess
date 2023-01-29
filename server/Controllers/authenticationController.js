@@ -43,16 +43,27 @@ exports.loginUser = async (req, res) => {
 }
 
 exports.logoutUser = (req, res) => {
-    if(req.session){
-        req.session.destroy(err => {
-            if(err)res.status(400).send('Unable to logout');
-            else res.send('Logout successful')
-        })
-    } else {
-        res.end();
-    }
+    req.session.destroy(err => {
+        if(err)res.status(400).send('Unable to logout');
+        else res.send('Logout successful')
+    })
 }
 
-exports.userHasSession = (req, res) => {
-    res.send(req.session.user? {isLogged: true, user: req.session.user} : {isLogged: false});
+exports.updateUser = async (req, res) => {
+    const {newUsername, newEmail} = req.body;
+    
+    await db.promise().query(`UPDATE users SET Username="${newUsername}", Email="${newEmail}" WHERE id=${req.session.user.id}`)
+    
+    req.session.user = {
+        id: req.session.user.id,
+        username: newUsername,
+        email: newEmail
+    }
+    
+    res.send({isLogged: true, user: req.session.user});
+}
+
+exports.getSession = (req, res) => {
+    if(req.session && req.session.user)res.send(req.session.user);
+    else res.status(401).json({message: 'Unauthorized'});
 }

@@ -7,8 +7,10 @@ router.post('/register', auth_controller.registerUser);
 
 router.post('/login', auth_controller.loginUser);
 
-router.get('/session', auth_controller.userHasSession);
+router.get('/session', auth_controller.getSession);
 
 router.delete('/logout', auth_controller.logoutUser);
+
+router.put('/updateProfile', auth_controller.updateUser);
 
 module.exports  = router;

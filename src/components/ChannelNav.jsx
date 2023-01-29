@@ -27,10 +27,11 @@ const ChannelNav = () =>{
         })
 
         const response = await fetch('/api/channels/load');
-        const data = await response.json();
 
-        if(data.hasOwnProperty('isLogged'))navigate('/');
+        if(!response.ok)navigate('/');
         else {
+            const data = await response.json();
+
             setChannelValues(data);
         }
     }
@@ -45,14 +46,9 @@ const ChannelNav = () =>{
 
     function toggleActive(activatedChannel){
         localStorage.setItem('Active Channel', activatedChannel.id);
-        setActiveChannel(activatedChannel)
+        setActiveChannel(activatedChannel);
         
-        fetch('/api/session')
-        .then(res => res.json())
-        .then(session => {
-            if(session.isLogged)navigate(`/app/${activatedChannel.id}`);
-            else navigate('/');
-        })   
+        navigate(`/app/${activatedChannel.id}`)
     }
 
     return (
