@@ -16,10 +16,6 @@ export default function ChannelInfo({isHomePage}){
         console.log(session);
     }, [session]);
 
-    useEffect(() => {
-        console.log(activeChannel);
-    }, [activeChannel])
-
     return (
         <div className="channel-info">
             {!isHomePage ?

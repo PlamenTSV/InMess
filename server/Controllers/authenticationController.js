@@ -1,12 +1,13 @@
 const db = require('../Database/users.js');
 const bcrypt = require('bcryptjs');
+const cloudinary = require('../Database/cloud.js');
 
 exports.registerUser = async (req, res) => {
     const {username, password, email} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
-        const results = await db.promise().query(`INSERT INTO users (Username, Password, Email) VALUES ("${username}", "${hashedPassword}", "${email}")`);
+        const results = await db.promise().query(`INSERT INTO users (Username, Password, Email, Profile_icon) VALUES ("${username}", "${hashedPassword}", "${email}", "UserIcon_kj33jy")`);
         const id = results[0].insertId;
 
         req.session.user = {
@@ -63,7 +64,20 @@ exports.updateUser = async (req, res) => {
     res.send({isLogged: true, user: req.session.user});
 }
 
+exports.getProfileIcon = async (req, res) => {
+    if(req.session && req.session.user){
+        const userID = req.session.user.id;
+
+        const fileQuery = await db.promise().query(`SELECT Profile_icon FROM users WHERE id = ${userID}`);
+        const fileName = fileQuery[0][0].Profile_icon;
+        console.log(fileName);
+
+        const image = cloudinary.url('profile-pictures/' + fileName);
+        res.send(image);
+    } else res.status(401).json({message: 'Unauthorized'});
+}
+
 exports.getSession = (req, res) => {
-    if(req.session && req.session.user)res.send(req.session.user);
-    else res.status(401).json({message: 'Unauthorized'});
+    if(req.session && req.session.user)res.send({message: 'Authorized', user: req.session.user});
+    else res.json({message: 'Unauthorized'});
 }

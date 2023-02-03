@@ -6,7 +6,6 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 
 function RegisterPage(){
     const Logo = process.env.PUBLIC_URL + '/images/FinalLogo.png';
@@ -22,10 +21,12 @@ function RegisterPage(){
         message: ''
     })
 
-    const cookies = useCookies(['user']);
-
     useEffect(() => {
-        if(cookies.user)navigate('/app/home');
+        fetch('/api/session')
+        .then(res => res.json())
+        .then(sess => {
+           if(sess.message === 'Authorized')navigate('/app/home')
+        })
       }, [])
 
     const validateEmail = (email) => {
@@ -75,8 +76,11 @@ function RegisterPage(){
                 <input type="text" name="email" placeholder="Email..." onChange={(e) => setEmail(e.target.value)}/>
                 <input type="password" name="password" placeholder="Password..." onChange={(e) => setPassword(e.target.value)}/>
                 <input type="password" name="confirm-password" placeholder="Confirm password..." onChange={(e) => setConfirmedPassword(e.target.value)}/>
-                <Link to='/' className='toLogin'><h3>Have an account?</h3></Link>
+
+                <Link to='/' className='toLogin'>Already have an account?</Link>
+
                 {registerError.error? <label className='registerError'><WarningAmberIcon/>{registerError.message}</label> : '' }
+                
                 <button onClick={() => handleRegister()}>Register</button>
             </div>
         </div>

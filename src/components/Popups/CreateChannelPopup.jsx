@@ -65,7 +65,7 @@ export default function CreateChannelPopup(props){
                     
                     setChannelValues(curr => [...curr, {
                         Channel_name: name.current.value,
-                        Channel_path: image,
+                        Channel_icon: image,
                         id: uniqueID
                     }]);
 

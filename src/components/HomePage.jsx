@@ -11,8 +11,20 @@ const HomePage = () => {
     const {session} = useProvider();
     
     const [username, setUsername] = useState("");
+    const [profilePicture, setProfilePicture] = useState(process.env.PUBLIC_URL + '/images/UserIcon.png');
     const [editingProfile, setEditingProfile] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetch('/api/profileIcon')
+        .then(res => {
+            if(!res.ok)navigate('/');
+            else return res.json();
+        })
+        .then(pfp => {
+            setProfilePicture(pfp);
+        })
+    }, [])
 
     useEffect(() => {
         setUsername(session.username);
@@ -23,7 +35,7 @@ const HomePage = () => {
             <div className="account-section">
 
                 <div className="header">
-                    <img className="profile-pic" alt="pfp" src={process.env.PUBLIC_URL + '/images/UserIcon.png'}/>
+                    <img className="profile-pic" alt="pfp" src={profilePicture}/>
                     <div className="greetings">
                         <h1>Welcome!</h1>
                         <h2>{username}</h2>

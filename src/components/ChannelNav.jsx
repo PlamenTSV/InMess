@@ -57,7 +57,7 @@ const ChannelNav = () =>{
 
             {channelValues.filter(el => el.Channel_name !== undefined && el.Channel_name !== "")
                         .map(el => {
-                        return (<img key={el.id} onClick={() => toggleActive(el)} className='logo-button' src={el.Channel_path} style={(el.id === activeChannel.id)? activeBorder : {}} alt={el.Channel_name}/>)
+                        return (<img key={el.id} onClick={() => toggleActive(el)} className='logo-button' src={el.Channel_icon} style={(el.id === activeChannel.id)? activeBorder : {}} alt={el.Channel_name}/>)
                         })}
 
             <img className='logo-button' src={addImage} alt='Add channel button' onClick={() => setPopup(true)}/>

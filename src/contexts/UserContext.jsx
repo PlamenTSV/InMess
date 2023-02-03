@@ -27,7 +27,6 @@ export const UserProvider = ({children}) => {
     useEffect(() => {
         fetch('/api/session')
         .then(res => {
-            console.log(res);
             if(!res.ok)navigate('/');
             else return res.json();
         })

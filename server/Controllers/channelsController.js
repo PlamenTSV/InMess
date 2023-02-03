@@ -11,7 +11,7 @@ exports.addChannel = async (req, res) => {
     .then(response => {
         path = response.etag;
 
-        db.promise().query(`INSERT INTO channels (id, Channel_name, Channel_path, Owner) VALUES (${id}, "${name}", "${path}", "${creator}")`)
+        db.promise().query(`INSERT INTO channels (id, Channel_name, Channel_icon, Owner) VALUES (${id}, "${name}", "${path}", "${creator}")`)
         .catch(err => {
             console.log(err);
             res.send(err);
@@ -60,7 +60,7 @@ exports.loadChannels = async (req, res) => {
             });
 
             channels.forEach(el => {
-                el.Channel_path = cloudinary.url('channel-banners/' + el.Channel_path);
+                el.Channel_icon = cloudinary.url('channel-banners/' + el.Channel_icon);
             });
 
             res.send(channels);

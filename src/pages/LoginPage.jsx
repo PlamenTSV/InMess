@@ -6,7 +6,6 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 import {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
  
 function LoginPage(){
   const Logo = process.env.PUBLIC_URL + '/images/FinalLogo.png';
@@ -20,11 +19,12 @@ function LoginPage(){
     message: ''
   });
 
-  const cookies = useCookies(['user']);
-
   useEffect(() => {
-    console.log(cookies.user);
-    if(cookies.user)navigate('/app/home');
+    fetch('/api/session')
+    .then(res => res.json())
+    .then(sess => {
+      if(sess.message === 'Authorized')navigate('/app/home')
+    })
 
     document.addEventListener('keydown', e => {
       if(e.key === 'Enter')handleLogin()
@@ -70,7 +70,7 @@ function LoginPage(){
         <input type="text" name="username" placeholder="Username..." onChange={(e) => setUsername(e.target.value)}/>
         <input type="password" name="password" placeholder="Password..." onChange={(e) => setPassword(e.target.value)}/>
         
-        <Link to='/register' className='toRegister'><h3>Don't have an account yet?</h3></Link>
+        <Link to='/register' className='toRegister'>Don't have an account yet?</Link>
         {loginError.error? <label className='loginError'><WarningAmberIcon/>{loginError.message}</label> : '' }
 
         <button onClick={() => handleLogin()}>Login</button>
