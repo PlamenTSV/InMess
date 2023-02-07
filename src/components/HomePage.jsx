@@ -16,14 +16,7 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('/api/profileIcon')
-        .then(res => {
-            if(!res.ok)navigate('/');
-            else return res.json();
-        })
-        .then(pfp => {
-            setProfilePicture(pfp);
-        })
+        console.log(session);
     }, [])
 
     useEffect(() => {

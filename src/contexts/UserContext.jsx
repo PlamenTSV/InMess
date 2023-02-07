@@ -17,12 +17,12 @@ export const UserProvider = ({children}) => {
     const [channelValues, setChannelValues] = useState([{}]);
     const [activeChannel, setActiveChannel] = useState({});
     const [activeUsers, setActiveUsers] = useState([]);
-    const [session, setSession] = useState(
-            {
+    const [session, setSession] = useState({
+            user: {
                 id: 0, 
                 username: 'Loading...'
             }
-        );
+        });
 
     useEffect(() => {
         fetch('/api/session')

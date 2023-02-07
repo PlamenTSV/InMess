@@ -80,7 +80,7 @@ export default function ChatPage(){
                                 'Content-type': 'application/json'
                             },
                             body: JSON.stringify({
-                                senderID: session.id,
+                                senderID: session.user.id,
                                 content: event.target.value,
                                 sent_at: sentAt,
                                 channel_id: activeChannel.id

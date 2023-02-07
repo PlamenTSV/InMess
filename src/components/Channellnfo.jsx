@@ -21,7 +21,7 @@ export default function ChannelInfo({isHomePage}){
             {!isHomePage ?
                 <>
                     <h2>{activeChannel.Channel_name}</h2>
-                    <img className="server-banner" src={activeChannel.Channel_path} alt="logo"/>
+                    <img className="server-banner" src={activeChannel.Channel_icon} alt="logo"/>
                     {
                         (activeChannel.Owner === session.id && session !== undefined) ? 
                             <button className="delete-button" onClick={() => {
