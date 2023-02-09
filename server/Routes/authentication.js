@@ -6,8 +6,6 @@ const auth_controller = require('../Controllers/authenticationController');
 //GET ROUTES
 router.get('/session', auth_controller.getSession);
 
-router.get('/profileIcon', auth_controller.getProfileIcon);
-
 //POST ROUTES
 router.post('/register', auth_controller.registerUser);
 

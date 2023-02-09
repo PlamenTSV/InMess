@@ -35,8 +35,13 @@
     height: 170px;
     aspect-ratio: 1/1;
 
-    border-radius: 100%;
+    border-radius: 50%;
+    transition: 0.2s;
+}
 
+.profile-avatar:hover {
+    border-radius: 30%;
+    cursor: pointer;
 }
 
 .profile-popup > input[type="text"] {
@@ -50,7 +55,7 @@
     border-radius: 10px;
 }
 
-.profile-popup > input[type="button"] {
+.edit-button {
     width: 100px;
     height: 50px;
     border-radius: 20px;
@@ -59,7 +64,14 @@
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
 
-    background-color: rgb(200, 228, 252);;
+    background-color: rgb(200, 228, 252);
+    transition: 0.2s;
+}
+
+.edit-button:hover{
+    color: white;
+    cursor: pointer;
+    background-color: rgb(96, 109, 121);
 }
 
 #password {

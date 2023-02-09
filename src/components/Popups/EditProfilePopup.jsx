@@ -13,11 +13,15 @@ const EditProfilePopup = ({trigger, setTrigger}) => {
     const {session, setSession} = useProvider();
 
     const [image, setImage] = useState(process.env.PUBLIC_URL + '/images/UserIcon.png');
+    const [cloudImage, setCloudImage] = useState();
+    const reader = new FileReader();
 
     useEffect(() => {
         function handleClickOutside(event){
             if (containerRef.current && !containerRef.current.contains(event.target)) {
                 setTrigger(false);
+                setImage(process.env.PUBLIC_URL + '/images/UserIcon.png');
+                setCloudImage();
             }
         }
 
@@ -40,33 +44,43 @@ const EditProfilePopup = ({trigger, setTrigger}) => {
                     onChange={(event) => {
                         if(event.target.files && event.target.files[0]){
                             setImage(URL.createObjectURL(event.target.files[0]));
+
+                            reader.readAsDataURL(event.target.files[0]);
+                            reader.onloadend = () => {
+                                setCloudImage(reader.result);
+                            }
                         }
                     }}
                     />
                 </label>
 
                 <h3>Username</h3>
-                <input type="text" defaultValue={session.username} ref={usernameRef}/>
+                <input type="text" defaultValue={session.user.username} ref={usernameRef}/>
 
                 <h3>Email</h3>
-                <input type="text" defaultValue={session.email} ref={emailRef}/>
+                <input type="text" defaultValue={session.user.email} ref={emailRef}/>
 
                 <input type="button" value="Change password" id="password"/>
 
-                <input type="button" value="EDIT"
+                <input type="button" value="EDIT" className="edit-button"
                 onClick={() => {
+                    const requestBody = {
+                        newUsername: usernameRef.current.value,
+                        newEmail: emailRef.current.value,
+                        newAvatar: (cloudImage)? cloudImage : null
+                    }
+                    console.log(requestBody);
                     fetch('/api/updateProfile', {
                         method: 'PUT',
                         headers: {
                             'Content-type': 'application/json'
                         },
-                        body: JSON.stringify({
-                            newUsername: usernameRef.current.value,
-                            newEmail: emailRef.current.value
-                        })
+                        body: JSON.stringify(requestBody)
                     })
                     .then(res => res.json())
                     .then(newSession => setSession(newSession));
+
+                    setTrigger(false);
                 }}/>
             </div>
         </div>

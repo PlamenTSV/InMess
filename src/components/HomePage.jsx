@@ -17,10 +17,11 @@ const HomePage = () => {
 
     useEffect(() => {
         console.log(session);
-    }, [])
+    }, [session])
 
     useEffect(() => {
-        setUsername(session.username);
+        setUsername(session.user.username);
+        setProfilePicture(session.user.icon);
     }, [session])
 
     return (

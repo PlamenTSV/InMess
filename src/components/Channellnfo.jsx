@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useProvider } from "../contexts/UserContext";
@@ -11,10 +10,6 @@ export default function ChannelInfo({isHomePage}){
 
     const navigate = useNavigate();
     const {activeChannel, setChannelValues, session} = useProvider();
-
-    useEffect(() => {
-        console.log(session);
-    }, [session]);
 
     return (
         <div className="channel-info">

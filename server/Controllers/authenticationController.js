@@ -13,7 +13,8 @@ exports.registerUser = async (req, res) => {
         req.session.user = {
             id: id,
             username: username,
-            email: email
+            email: email,
+            icon: cloudinary.url('profile-pictures/' + 'UserIcon_kj33jy')
         }
         console.log(req.session.user);
         res.status(200).send({message: 'Success'});
@@ -26,7 +27,7 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     const {username, password} = req.body;
 
-    const dbData = await db.promise().query(`SELECT id, Email, Password FROM users WHERE Username='${username}'`)
+    const dbData = await db.promise().query(`SELECT id, Email, Password, Profile_icon FROM users WHERE Username='${username}'`)
     const matchingUsers = dbData[0];
 
     if(matchingUsers.length === 0)res.send({message: 'No such user found!'});
@@ -36,7 +37,8 @@ exports.loginUser = async (req, res) => {
             req.session.user = {
                 id: user.id,
                 username: username,
-                email: user.Email
+                email: user.Email,
+                icon: cloudinary.url('profile-pictures/' + user.Profile_icon)
             }
             res.status(200).send({message: 'Success'})
         } else res.send({message: 'Wrong password'});
@@ -51,30 +53,38 @@ exports.logoutUser = (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-    const {newUsername, newEmail} = req.body;
+    const {newUsername, newEmail, newAvatar} = req.body;
     
     await db.promise().query(`UPDATE users SET Username="${newUsername}", Email="${newEmail}" WHERE id=${req.session.user.id}`)
-    
-    req.session.user = {
-        id: req.session.user.id,
-        username: newUsername,
-        email: newEmail
+
+
+    if(newAvatar !== null){
+        cloudinary.uploader
+        .upload(newAvatar,  { use_filename: true, folder: "profile-pictures" , responsive_breakpoints: { create_derived: true, bytes_step: 20000, min_width: 200, max_width: 1000 }})
+        .then(async response => {
+            await db.promise().query(`UPDATE users SET Profile_icon="${response.etag}" WHERE id=${req.session.user.id}`)
+
+            req.session.user = {
+                id: req.session.user.id,
+                username: newUsername,
+                email: newEmail,
+                icon: cloudinary.url('profile-pictures/' + response.etag)
+            }
+
+            res.send({isLogged: true, user: req.session.user});
+        })
+    } else {
+        req.session.user = {
+            id: req.session.user.id,
+            username: newUsername,
+            email: newEmail,
+            icon: req.session.user.icon
+        }
+
+        res.send({isLogged: true, user: req.session.user});
     }
     
-    res.send({isLogged: true, user: req.session.user});
-}
-
-exports.getProfileIcon = async (req, res) => {
-    if(req.session && req.session.user){
-        const userID = req.session.user.id;
-
-        const fileQuery = await db.promise().query(`SELECT Profile_icon FROM users WHERE id = ${userID}`);
-        const fileName = fileQuery[0][0].Profile_icon;
-        console.log(fileName);
-
-        const image = cloudinary.url('profile-pictures/' + fileName);
-        res.send(image);
-    } else res.status(401).json({message: 'Unauthorized'});
+    
 }
 
 exports.getSession = (req, res) => {

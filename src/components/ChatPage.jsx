@@ -34,7 +34,7 @@ export default function ChatPage(){
 
     useEffect(() => {
         if(activeChannel.id !== undefined){
-            socket.emit('join', {channel: activeChannel.id, userInfo: session});
+            socket.emit('join', {channel: activeChannel.id, userInfo: session.user});
 
             retrieveMessages(activeChannel.id);
         } else {
@@ -59,7 +59,7 @@ export default function ChatPage(){
     return(
         <div className="chat-container">
             <div className="chat">
-                {messages.map((mess, index) => <TextMessage key={index} sender={mess.senderUsername} message={mess.content}/>)}
+                {messages.map((mess, index) => <TextMessage key={index} icon={mess.senderIcon} sender={mess.senderUsername} message={mess.content}/>)}
             </div>
             <div className="input-area">
                 <input type="text" autoFocus onKeyDown={(event) => {
@@ -89,6 +89,7 @@ export default function ChatPage(){
                         .then(res => res.json())
                         .then(data => {
                             socket.emit('message', {
+                                senderIcon: session.user.icon,
                                 senderUsername: data.username,
                                 content: event.target.value,
                                 sent_at: sentAt,
