@@ -7,10 +7,7 @@ exports.addMessage = async (req, res) => {
     db.promise().query(`INSERT INTO messages (senderID, content, sent_at, channel_id) VALUES (${senderID}, "${content}", "${sent_at}", ${channel_id})`)
     .catch(err => console.log(err))
 
-    const username = await db.promise().query(`SELECT Username FROM users WHERE id=${senderID}`);
-    const icon = await db.promise().query(`SELECT Profile_icon FROM users WHERE id=${senderID}`);
-
-    res.status(200).send({username: username[0][0].Username, icon: cloudinary.url('profile-pictures/' + icon[0][0].Profile_icon)});
+    res.status(200).end();
 }
 
 exports.loadMessages = async (req, res) => {

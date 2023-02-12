@@ -51,9 +51,9 @@ app.use('/api', authentication);
 app.use('/api', checkSession, channels);
 app.use('/api', checkSession, messages);
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../build/index.html'));
-// })
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../build/index.html'));
+})
 
 io.on('connection', (socket) => {
     console.log('New client connection');

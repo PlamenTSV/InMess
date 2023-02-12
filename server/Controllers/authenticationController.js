@@ -71,7 +71,7 @@ exports.updateUser = async (req, res) => {
                 icon: cloudinary.url('profile-pictures/' + response.etag)
             }
 
-            res.send({isLogged: true, user: req.session.user});
+            res.send({message: 'Authorized', user: req.session.user});
         })
     } else {
         req.session.user = {
@@ -81,7 +81,7 @@ exports.updateUser = async (req, res) => {
             icon: req.session.user.icon
         }
 
-        res.send({isLogged: true, user: req.session.user});
+        res.send({message: 'Authorized', user: req.session.user});
     }
     
     

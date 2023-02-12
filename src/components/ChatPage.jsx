@@ -19,7 +19,6 @@ export default function ChatPage(){
         socket = io();
         
         socket.on('chat', msg => {
-            console.log(msg);
             setMessages(old => [...old, msg]);
         })
 
@@ -86,11 +85,10 @@ export default function ChatPage(){
                                 channel_id: activeChannel.id
                             })
                         })
-                        .then(res => res.json())
-                        .then(data => {
+                        .then(() => {
                             socket.emit('message', {
                                 senderIcon: session.user.icon,
-                                senderUsername: data.username,
+                                senderUsername: session.user.username,
                                 content: event.target.value,
                                 sent_at: sentAt,
                                 channel_id: activeChannel.id
