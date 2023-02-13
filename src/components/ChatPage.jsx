@@ -62,7 +62,7 @@ export default function ChatPage(){
             </div>
             <div className="input-area">
                 <input type="text" autoFocus onKeyDown={(event) => {
-                    if(event.key === 'Enter'){
+                    if(event.key === 'Enter' && event.target.value.trim() !== ""){
                         const date = new Date();
 
                         const month = format2Digits(date.getMonth() + 1);
