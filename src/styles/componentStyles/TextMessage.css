@@ -13,11 +13,35 @@
     border-radius: 50%;
 }
 
+.info {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    height: 40px;
+}
+
 .sender {
     font-weight: bold;
-    margin-bottom: 5px;
+}
+
+.date {
+    font-size: 11px;
+}
+
+.time {
+    font-size: 11px;
 }
 
 .message {
     margin: 0;
+    padding: 0;
+}
+
+.message > p {
+    margin: 0;
+    padding: 0;
 }

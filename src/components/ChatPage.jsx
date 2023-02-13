@@ -58,7 +58,7 @@ export default function ChatPage(){
     return(
         <div className="chat-container">
             <div className="chat">
-                {messages.map((mess, index) => <TextMessage key={index} icon={mess.senderIcon} sender={mess.senderUsername} message={mess.content}/>)}
+                {messages.map((mess, index) => <TextMessage key={index} message={mess}/>)}
             </div>
             <div className="input-area">
                 <input type="text" autoFocus onKeyDown={(event) => {
@@ -71,7 +71,7 @@ export default function ChatPage(){
                         const minutes = format2Digits(date.getMinutes());
                         const seconds = format2Digits(date.getSeconds());
 
-                        const sentAt = `${date.getFullYear()}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                        const sentAt = `${date.getFullYear()}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 
                         fetch('/api/messages/add', {
                             method: 'POST',
