@@ -36,7 +36,7 @@ export default function ChannelInfo({isHomePage}){
                 </>
                 :
                 <>
-                    <h2>Welcome to Geekscord</h2>
+                    <h2>Welcome to InMess</h2>
                     <img className="server-banner" src={channelImage} alt="logo"/>
                 </>
             }
