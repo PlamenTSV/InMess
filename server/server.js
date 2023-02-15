@@ -51,9 +51,9 @@ app.use('/api', authentication);
 app.use('/api', checkSession, channels);
 app.use('/api', checkSession, messages);
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../build/index.html'));
-// })
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../build/index.html'));
+})
 
 io.on('connection', (socket) => {
     console.log('New client connection');
@@ -63,6 +63,7 @@ io.on('connection', (socket) => {
         socket.join(props.channel);
 
         socket.user = props.userInfo;
+
         const activeSockets = io.sockets.adapter.rooms.get(props.channel);
 
         const usernames = [];
@@ -70,15 +71,15 @@ io.on('connection', (socket) => {
             usernames.push(io.sockets.sockets.get(clientSocket).user.username);
         }
         
-        socket.emit('active_users', usernames);
+        socket.emit('get_active_users', usernames);
     })
 
     socket.on('message', messageInfo => {
         io.sockets.in(messageInfo.channel_id).emit('chat', messageInfo)
     })
 
-    socket.on('disconnecting', () => {
-        console.log('disconnected')
+    socket.on('disconnect', () => {
+        console.log('disconnected');
     })
 })
 

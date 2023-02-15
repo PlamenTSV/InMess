@@ -22,12 +22,15 @@ export default function ChatPage(){
             setMessages(old => [...old, msg]);
         })
 
-        socket.on('active_users', usernames => {
+        socket.on('get_active_users', usernames => {
             setActiveUsers(usernames);
         })
 
         return () => {
-            if(socket) socket.disconnect();
+            if(socket) {
+                socket.emit('leave_room', {channel: activeChannel.id});
+                socket.disconnect()
+            };
         }
    }, [])
 

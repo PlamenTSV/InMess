@@ -19,13 +19,14 @@
 
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 3px;
 
     height: 40px;
 }
 
 .sender {
     font-weight: bold;
+    margin-right: 3px;
 }
 
 .date {
